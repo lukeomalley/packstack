@@ -1,7 +1,0 @@
-rails g model Pack name description image_url category_id:integer user_id:integer
-
-rails g model Card question answer is_multi:boolean options:text image_url
-
-rails g model View result card_id:integer user_id:integer
-
-rails g model User name image_url
