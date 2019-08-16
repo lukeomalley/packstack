@@ -5,7 +5,9 @@ class PacksController < ApplicationController
     render json: Pack.all
   end
 
-  def show; end
+  def show
+    render json: Pack.find(params[:id])
+  end
 
   def create; end
 
