@@ -14,7 +14,7 @@ class PacksController < ApplicationController
     if user.save!
       render json: user
     else
-      render json: {error: 'try again next time pal'}
+      render json: { error: 'try again next time pal' }
     end
   end
 
@@ -27,5 +27,4 @@ class PacksController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :image_url)
   end
-
 end
