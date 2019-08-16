@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # wipe database before seeding
 
 Card.destroy_all
@@ -40,20 +42,19 @@ supernovas = Pack.create(name: 'Supernovas', description: 'Practice with a Super
 
 # cards
 
-fun = Card.create(question: 'Is Ruby fun?', answer: 'Yes', is_multi: false, image_url: 'https://source.unsplash.com/600x400/?code', pack_id: Pack.find(ruby.id))
-how = Card.create(question: 'How fun is Ruby?', answer: 'like totes', is_multi: true, options: 'very|super very|like totes', image_url: 'https://source.unsplash.com/600x400/?code', pack_id: Pack.find(ruby.id))
+fun = Card.create(question: 'Is Ruby fun?', answer: 'Yes', is_multi: false, image_url: 'https://source.unsplash.com/600x400/?code', pack: Pack.find(ruby.id))
+how = Card.create(question: 'How fun is Ruby?', answer: 'like totes', is_multi: true, options: 'very|super very|like totes', image_url: 'https://source.unsplash.com/600x400/?code', pack: Pack.find(ruby.id))
 answer = Card.create(question: 'What is the answer?', answer: 'Scaffold', is_multi: false, image_url: 'https://source.unsplash.com/600x400/?code', pack_id: Pack.find(ruby.id))
 
 # views
-
-View.create(result: 'right', user_id: User.find(tony.id), card_id: Card.find(fun.id))
-View.create(result: 'presumed', user_id: User.find(tony.id), card_id: Card.find(how.id))
-View.create(result: 'wrong', user_id: User.find(tony.id), card_id: Card.find(answer.id))
-View.create(result: 'right', user_id: User.find(tony.id), card_id: Card.find(fun.id))
-View.create(result: 'right', user_id: User.find(tony.id), card_id: Card.find(how.id))
-View.create(result: 'right', user_id: User.find(tony.id), card_id: Card.find(answer.id))
-View.create(result: 'right', user_id: User.find(tony.id), card_id: Card.find(fun.id))
-View.create(result: 'right', user_id: User.find(tony.id), card_id: Card.find(how.id))
-View.create(result: 'presumed', user_id: User.find(tony.id), card_id: Card.find(answer.id))
-View.create(result: 'presumed', user_id: User.find(tony.id), card_id: Card.find(fun.id))
-View.create(result: 'wrong', user_id: User.find(tony.id), card_id: Card.find(fun.id))
+View.create(result: 'right', user_id: User.find_by(id: tony.id), card_id: Card.find_by(id: fun.id))
+View.create(result: 'presumed', user_id: User.find_by(id: tony.id), card_id: Card.find_by(id: how.id))
+View.create(result: 'wrong', user_id: User.find_by(id: tony.id), card_id: Card.find_by(id: answer.id))
+View.create(result: 'right', user_id: User.find_by(id: tony.id), card_id: Card.find_by(id: fun.id))
+View.create(result: 'right', user_id: User.find_by(id: tony.id), card_id: Card.find_by(id: how.id))
+View.create(result: 'right', user_id: User.find_by(id: tony.id), card_id: Card.find_by(id: answer.id))
+View.create(result: 'right', user_id: User.find_by(id: tony.id), card_id: Card.find_by(id: fun.id))
+View.create(result: 'right', user_id: User.find_by(id: tony.id), card_id: Card.find_by(id: how.id))
+View.create(result: 'presumed', user_id: User.find_by(id: tony.id), card_id: Card.find_by(id: answer.id))
+View.create(result: 'presumed', user_id: User.find_by(id: tony.id), card_id: Card.find_by(id: fun.id))
+View.create(result: 'wrong', user_id: User.find_by(id: tony.id), card_id: Card.find_by(id: fun.id))

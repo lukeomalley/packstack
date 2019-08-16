@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Card < ApplicationRecord
   has_many :views, dependent: :destroy
   belongs_to :pack, required: true
