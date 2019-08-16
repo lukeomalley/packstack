@@ -44,7 +44,7 @@ supernovas = Pack.create(name: 'Supernovas', description: 'Practice with a Super
 
 fun = Card.create(question: 'Is Ruby fun?', answer: 'Yes', is_multi: false, image_url: 'https://source.unsplash.com/600x400/?code', pack: Pack.find(ruby.id))
 how = Card.create(question: 'How fun is Ruby?', answer: 'like totes', is_multi: true, options: 'very|super very|like totes', image_url: 'https://source.unsplash.com/600x400/?code', pack: Pack.find(ruby.id))
-answer = Card.create(question: 'What is the answer?', answer: 'Scaffold', is_multi: false, image_url: 'https://source.unsplash.com/600x400/?code', pack_id: Pack.find(ruby.id))
+answer = Card.create(question: 'What is the answer?', answer: 'Scaffold', is_multi: false, image_url: 'https://source.unsplash.com/600x400/?code', pack: Pack.find(ruby.id))
 
 # views
 

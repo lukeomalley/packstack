@@ -7,7 +7,7 @@ class PacksController < ApplicationController
   end
 
   def show
-    render json: Pack.find(params[:id])
+    render json: Pack.find(params[:id]).to_json(pack_serializer_options)
   end
 
   def create
@@ -39,6 +39,16 @@ class PacksController < ApplicationController
     {
       :include => {
         :user => {:only =>[:name, :image_url]},
+      },
+      :except => [:updated_at]
+    }
+  end
+
+  def pack_serializer_options
+    {
+      :include => {
+        :user => {:only =>[:name, :image_url]},
+        :cards => {:only => [:question, :answer, :is_multi, :options, :image_url]}
       },
       :except => [:updated_at]
     }
