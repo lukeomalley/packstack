@@ -2,7 +2,8 @@
 
 class PacksController < ApplicationController
   def index
-    render json: Pack.all
+    packs = Pack.all
+    render json: packs.to_json(packs_serializer_options)
   end
 
   def show
@@ -32,5 +33,14 @@ class PacksController < ApplicationController
 
   def pack_params
     params.require(:packs).permit(:id, :name, :description, :image_url, :category, :user_id)
+  end
+
+  def packs_serializer_options 
+    {
+      :include => {
+        :user => {:only =>[:name, :image_url]},
+      },
+      :except => [:updated_at]
+    }
   end
 end
