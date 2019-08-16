@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  # TODO remove the routes that we do not need
   resources :users
   resources :views
   resources :cards
