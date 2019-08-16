@@ -10,21 +10,27 @@ class PacksController < ApplicationController
   end
 
   def create
-    user = User.new(user_params)
-    if user.save!
-      render json: user
+    pack = Pack.new(pack_params)
+    if pack.save!
+      render json: pack
     else
       render json: { error: 'try again next time pal' }
     end
   end
 
-  def update; end
+  def update
+    pack = Pack.find(params[:id])
+    pack.update!(pack_params)
+    render json: pack
+  end
 
-  def destroy; end
+  def destroy
+    Pack.delete(params[:id])
+  end
 
   private
 
-  def user_params
-    params.require(:user).permit(:name, :image_url)
+  def pack_params
+    params.require(:packs).permit(:name, :description, :image_url, :category, :user_id)
   end
 end
