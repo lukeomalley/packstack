@@ -24,7 +24,10 @@ function renderPack(pack) {
             <h3>${pack.user.name}</h3>
         </div>
         `;
-  packDiv.addEventListener('click', e => switchPage(e, 'pack-show-page'));
+  packDiv.addEventListener('click', e => {
+    switchPage(e, 'pack-show-page');
+    renderPackPage(packDiv.dataset.id);
+  });
   packsDiv.appendChild(packDiv);
 }
 
