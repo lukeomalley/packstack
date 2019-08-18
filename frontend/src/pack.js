@@ -23,7 +23,7 @@ function renderPackDeets(pack) {
     <p>Created: ${createDate} by ${pack.user.name}</p>
   </div>
   <div class="preview">
-    ${pack.cards[0].question}
+    ${pack.cards[0] ? pack.cards[0].question : null}
     <form id="start-form">
       <label>Set timer per flashcard (sec)</label>
       <input type="number" placeholder="10"/>
