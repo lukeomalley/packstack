@@ -5,13 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
   renderHeader();
 
   const loginButton = document.querySelector('#modal_opener');
-  loginButton.addEventListener('click', () => toggleModal("login"));
+  loginButton.addEventListener('click', () => toggleModal('login'));
 
   const loginForm = document.getElementById('login-form');
   loginForm.addEventListener('submit', loginUser);
 });
 
-<<<<<<< HEAD
 function switchPage(e, pageId) {
   // Switches the display property of the page passed in to block
   // all other pages get set to display none
@@ -20,7 +19,8 @@ function switchPage(e, pageId) {
     document.getElementById(page).style.display = 'none';
   });
   document.getElementById(pageId).style.display = 'block';
-=======
+}
+
 function toggleNav() {
   const navUl = document.querySelector('.nav-links');
   if (navUl.classList.contains('show-nav')) {
@@ -38,13 +38,12 @@ function loginUser(e) {
   e.preventDefault();
   currentUser = e.target[0].value;
   renderHeader();
-  toggleModal('login')
+  toggleModal('login');
 }
 
 function logoutUser() {
   currentUser = null;
   renderHeader();
->>>>>>> user-stuff
 }
 
 // PAGE HEADER //
@@ -93,16 +92,12 @@ function renderNavLinks() {
     logoutLink.innerText = `Logout`;
 
     homeLink.addEventListener('click', renderHomePage);
-<<<<<<< HEAD
     newPackLink.addEventListener('click', e => {
       switchPage(e, 'pack-new-page');
       renderNewPackPage();
     });
-    profileLink.addEventListener('click', renderProfilePage);
-=======
-    newPackLink.addEventListener('click', renderNewPackPage);
-    profileLink.addEventListener('click', () => toggleModal("profile"));
->>>>>>> user-stuff
+
+    profileLink.addEventListener('click', () => toggleModal('profile'));
     logoutLink.addEventListener('click', logoutUser);
 
     navUl.appendChild(homeLink);
@@ -183,24 +178,22 @@ function renderPack(pack) {
 
 // MODAL //
 
-function switchPage(e, pageId) {
-  const pages = ['home-page', 'pack-show-page', 'pack-new-page', 'user-page'];
-  pages.forEach(page => {
-    document.getElementById(page).style.display = 'none';
-  });
-  document.getElementById(pageId).style.display = 'block';
-}
-
 function attachModalListeners(modalEl, modalChoice) {
-  modalEl.querySelector('.close_modal').addEventListener('click', () => toggleModal(modalChoice));
-  modalEl.querySelector('.overlay').addEventListener('click', () => toggleModal(modalChoice));
+  modalEl
+    .querySelector('.close_modal')
+    .addEventListener('click', () => toggleModal(modalChoice));
+  modalEl
+    .querySelector('.overlay')
+    .addEventListener('click', () => toggleModal(modalChoice));
 }
 
 function detachModalListeners(modalEl, modalChoice) {
   modalEl
     .querySelector('.close_modal')
     .removeEventListener('click', () => toggleModal(modalChoice));
-  modalEl.querySelector('.overlay').removeEventListener('click', () => toggleModal(modalChoice));
+  modalEl
+    .querySelector('.overlay')
+    .removeEventListener('click', () => toggleModal(modalChoice));
 }
 
 function toggleModal(modalChoice) {
