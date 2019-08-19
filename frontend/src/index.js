@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function toggleNav() {
   console.log('toggle nav');
-  const navButton = document.querySelector('.logo-btn');
+  const navButton = document.querySelector('.nav-links');
   if (navButton.classList.contains('show-nav')) {
     navButton.classList.remove('show-nav');
   } else {
@@ -29,7 +29,7 @@ function renderHeader() {
             PACK STACK
           </a>
           <button type="button" class="logo-btn" >
-            <i class="material-icons">
+            <i class="material-icons logo-icon">
             format_align_right
             </i>
           </button>
@@ -37,9 +37,9 @@ function renderHeader() {
         <ul
           class="nav-links"
         >
-          <li>Login</li>
-          <li>Profile</li>
-          <li>New Pack</li>
+          <li id="login">Login</li>
+          <li id="profile">Profile</li>
+          <li id="newPack">New Pack</li>
         </ul>
       </div>
     </nav>

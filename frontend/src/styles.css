@@ -66,10 +66,18 @@ h1 {
   width: 100%;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  margin-bottom: 20px;
 }
 
 .pack-card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+@media screen and (max-width: 528px) {
+  .packs-container {
+    grid-template-columns: 1fr;
+    width: 80vw;
+  }
 }
 
 /* ---------------------------------- NAV BAR ---------------------------------- */
@@ -85,6 +93,12 @@ header {
   padding: 1rem 1.25rem;
 }
 
+.nav-header a {
+  text-decoration: none;
+  font-size: 28px;
+  color: var(--mainBlack);
+}
+
 .logo-btn {
   background: transparent;
   border: none;
@@ -96,8 +110,9 @@ header {
 }
 
 .logo-icon {
-  color: var(--primaryColor);
-  font-size: 1.5rem;
+  color: var(--mainBlack);
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .nav-links {
@@ -108,7 +123,7 @@ header {
 }
 
 .show-nav {
-  height: 216px;
+  height: 175px;
 }
 
 .nav-links li {
