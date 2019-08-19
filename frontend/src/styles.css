@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 
 :root {
-  --primaryColor: #254fac;
+  --primaryColor: #8cc8f5;
   --mainWhite: #fff;
   --offWhite: #f7f7f7;
   --mainBlack: #222;
@@ -40,6 +40,9 @@ h6 {
 
 h1 {
   text-align: center;
+}
+span {
+  color: var(--primaryColor);
 }
 
 /* ---------------------------------- BUTTONS ---------------------------------- */

@@ -65,7 +65,7 @@ function renderHeader() {
       <div class="nav-center"}>
         <div class="nav-header">
           <a>
-            PACK STACK
+            PACK <span>STACK</span>
           </a>
           <button type="button" class="logo-btn" >
             <i class="material-icons logo-icon">
@@ -129,7 +129,7 @@ function renderNavLinks() {
 
     loginLink.innerText = `Login`;
     loginLink.addEventListener('click', () => toggleModal('login'));
-    
+
     statsLink.addEventListener('click', e => {
       switchPage('stats-page');
       renderStatsPage();
