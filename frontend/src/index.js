@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderHeader();
 
   const loginButton = document.querySelector('#modal_opener');
-  loginButton.addEventListener('click', toggleModal);
+  loginButton.addEventListener('click', () => toggleModal("login"));
 
   const loginForm = document.getElementById('login-form');
   loginForm.addEventListener('submit', loginUser);
@@ -28,8 +28,7 @@ function loginUser(e) {
   e.preventDefault();
   currentUser = e.target[0].value;
   renderHeader();
-  const closeModal = document.querySelector('.close_modal');
-  closeModal.click();
+  toggleModal('login')
 }
 
 function logoutUser() {
@@ -82,7 +81,7 @@ function renderNavLinks() {
 
     homeLink.addEventListener('click', renderHomePage);
     newPackLink.addEventListener('click', renderNewPackPage);
-    profileLink.addEventListener('click', renderProfilePage);
+    profileLink.addEventListener('click', () => toggleModal("profile"));
     logoutLink.addEventListener('click', logoutUser);
 
     navUl.appendChild(homeLink);
@@ -98,8 +97,7 @@ function renderNavLinks() {
 }
 
 function renderHomePage() {}
-function renderLoginPage() {}
-function renderProfilePage() {}
+
 function renderNewPackPage() {}
 
 function fetchPacks() {
@@ -144,28 +142,28 @@ function switchPage(e, pageId) {
 
 // modal
 
-function attachModalListeners(modalEl) {
-  modalEl.querySelector('.close_modal').addEventListener('click', toggleModal);
-  modalEl.querySelector('.overlay').addEventListener('click', toggleModal);
+function attachModalListeners(modalEl, modalChoice) {
+  modalEl.querySelector('.close_modal').addEventListener('click', () => toggleModal(modalChoice));
+  modalEl.querySelector('.overlay').addEventListener('click', () => toggleModal(modalChoice));
 }
 
-function detachModalListeners(modalEl) {
+function detachModalListeners(modalEl, modalChoice) {
   modalEl
     .querySelector('.close_modal')
-    .removeEventListener('click', toggleModal);
-  modalEl.querySelector('.overlay').removeEventListener('click', toggleModal);
+    .removeEventListener('click', () => toggleModal(modalChoice));
+  modalEl.querySelector('.overlay').removeEventListener('click', () => toggleModal(modalChoice));
 }
 
-function toggleModal() {
-  const modal = document.querySelector('.modal');
+function toggleModal(modalChoice) {
+  const modal = document.querySelector(`.${modalChoice}.modal`);
   let currentState = modal.style.display;
 
   // If modal is visible, hide it. Else, display it.
   if (currentState === 'none') {
     modal.style.display = 'block';
-    attachModalListeners(modal);
+    attachModalListeners(modal, modalChoice);
   } else {
     modal.style.display = 'none';
-    detachModalListeners(modal);
+    detachModalListeners(modal, modalChoice);
   }
 }
