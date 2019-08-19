@@ -17,7 +17,9 @@ function renderPackDeets(pack) {
   });
   packPageConatiner.innerHTML = `
   <div class="deets">
-  <img src='../../backend/app/assets/images/${pack.image_url}' alt='Picture of ${pack.name}'>
+  <img src='../../backend/app/assets/images/${
+    pack.image_url
+  }' alt='Picture of ${pack.name}'>
     <h2>${pack.name}</h2>
     <p>${pack.description}</p>
     <p>Created: ${createDate} by ${pack.user.name}</p>
