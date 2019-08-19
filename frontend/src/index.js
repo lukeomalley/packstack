@@ -123,9 +123,20 @@ function renderNavLinks() {
     navUl.appendChild(logoutLink);
   } else {
     const loginLink = document.createElement('li');
+    const statsLink = document.createElement('li');
+
+    statsLink.innerText = `Stats`;
+
     loginLink.innerText = `Login`;
     loginLink.addEventListener('click', () => toggleModal('login'));
+    
+    statsLink.addEventListener('click', e => {
+      switchPage('stats-page');
+      renderStatsPage();
+    });
+
     navUl.appendChild(loginLink);
+    navUl.appendChild(statsLink);
   }
 }
 
@@ -133,19 +144,6 @@ function renderNewPackPage() {}
 
 function renderStatsPage() {
   console.log('stats page here!');
-}
-
-function toggleNav() {
-  const navUl = document.querySelector('.nav-links');
-  if (navUl.classList.contains('show-nav')) {
-    navUl.classList.remove('show-nav');
-  } else if (navUl.classList.contains('show-small-nav')) {
-    navUl.classList.remove('show-small-nav');
-  } else {
-    currentUser
-      ? navUl.classList.add('show-nav')
-      : navUl.classList.add('show-small-nav');
-  }
 }
 
 // LOGIN //
