@@ -234,17 +234,16 @@ h1 {
 
 #start-form {
   max-width: 500px;
-  padding: 10px 20px;
-  background: var(--offWhite);
-  margin: 50px auto;
+  margin: 10px 0px;
   border-radius: 8px;
+  height: 150px;
 }
 #start-form label {
   display: block;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 30px;
+  margin-bottom: 0px;
 }
-#start-stuff {
+#play {
   display: flex;
 }
 #start-form input[type="number"]{
@@ -254,12 +253,12 @@ h1 {
   font-size: 30px;
   padding: 10px;
   width: 30%;
-  margin: 30px;
+  margin: 30px 0px;
 }
 #start-form input[type="number"]:focus{
   outline: none;
 }
-.start-form-bttn {
+.pack-bttn {
 	background: linear-gradient(to bottom, var(--mainGrey) 5%, var(--darkGrey) 100%);
 	border-radius: 6px;
 	cursor: pointer;
@@ -267,15 +266,34 @@ h1 {
 	font-size: 16px;
 	font-weight: bold;
   padding: 14px;
+  width: 100px;
   width: 30%;
   margin: 30px;
 }
-.start-form-bttn:hover {
+.pack-bttn:hover {
 	background: linear-gradient(to bottom, var(--darkGrey) 5%, var(--mainGrey) 100%);
 }
-.start-form-bttn:active {
+.pack-bttn:active {
 	position: relative;
 	top: 1px;
+}
+.pack-edit {
+  margin: 10px 0px;
+  margin-top: 15px;
+  font-size: 12px;
+  width: 30%;
+}
+.pack-stats {
+  display: grid;
+  max-width: 600px;
+  background: var(--mainWhite);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 10px;
+  transition: 0.3s;
+  justify-content: center;
+  text-align: left;
+  cursor: pointer;
+  padding: 30px 15%;
 }
 
 /* ---------------------------------- PACK EDIT ---------------------------------- */
