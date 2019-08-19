@@ -1,18 +1,67 @@
-// const ancientgreece = require('./frontend/assets/images/ancientgreece.jpg')
-
+// TODO: create renderLoginPage function
+// TODO: create renderUserPage function
+// TODO: create renderNewPackPage function
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('yo.');
   fetchPacks();
+  renderHeader();
 });
+
+function toggleNav() {
+  console.log('toggle nav');
+  const navButton = document.querySelector('.nav-links');
+  if (navButton.classList.contains('show-nav')) {
+    navButton.classList.remove('show-nav');
+  } else {
+    navButton.classList.add('show-nav');
+  }
+}
+
+function renderHeader() {
+  // TODO add click listener for toggle nav button
+  // TODO add click listeners for nav list elements
+  const body = document.querySelector('body');
+  const pageHeader = document.createElement('header');
+  pageHeader.innerHTML = `
+    <nav class="navbar">
+      <div class="nav-center"}>
+        <div class="nav-header">
+          <a href="./index.html" >
+            PACK STACK
+          </a>
+          <button type="button" class="logo-btn" >
+            <i class="material-icons logo-icon">
+            format_align_right
+            </i>
+          </button>
+        </div>
+        <ul
+          class="nav-links"
+        >
+          <li id="login">Login</li>
+          <li id="profile">Profile</li>
+          <li id="newPack">New Pack</li>
+        </ul>
+      </div>
+    </nav>
+  `;
+  pageHeader.querySelector('button').addEventListener('click', toggleNav);
+  body.prepend(pageHeader);
+}
+
+function renderLoginPage() {}
+function renderUserPage() {}
+function renderNewPackPage() {}
 
 function fetchPacks() {
   fetch('http://localhost:3000/packs')
     .then(resp => resp.json())
-    .then(packsArray => renderPacks(packsArray));
+    .then(renderPacks);
 }
+
 function renderPacks(packsArray) {
   packsArray.forEach(renderPack);
 }
+
 function renderPack(pack) {
   const packsDiv = document.getElementById('packs-container');
   const packDiv = document.createElement('div');
