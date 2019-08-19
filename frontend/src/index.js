@@ -11,32 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
   loginForm.addEventListener('submit', loginUser);
 });
 
-function toggleNav() {
-  const navUl = document.querySelector('.nav-links');
-  if (navUl.classList.contains('show-nav')) {
-    navUl.classList.remove('show-nav');
-  } else if (navUl.classList.contains('show-small-nav')) {
-    navUl.classList.remove('show-small-nav');
-  } else {
-    currentUser
-      ? navUl.classList.add('show-nav')
-      : navUl.classList.add('show-small-nav');
-  }
+function switchPage(e, pageId) {
+  // Switches the display property of the page passed in to block
+  // all other pages get set to display none
+  const pages = ['home-page', 'pack-show-page', 'pack-new-page', 'user-page'];
+  pages.forEach(page => {
+    document.getElementById(page).style.display = 'none';
+  });
+  document.getElementById(pageId).style.display = 'block';
 }
 
-function loginUser(e) {
-  e.preventDefault();
-  currentUser = e.target[0].value;
-  renderHeader();
-  const closeModal = document.querySelector('.close_modal');
-  closeModal.click();
-}
-
-function logoutUser() {
-  currentUser = null;
-  renderHeader();
-}
-
+// PAGE HEADER //
 function renderHeader() {
   const body = document.querySelector('body');
   const oldHeader = document.querySelector('header');
@@ -45,29 +30,30 @@ function renderHeader() {
   }
   const pageHeader = document.createElement('header');
   pageHeader.innerHTML = `
-    <nav class="navbar">
-      <div class="nav-center"}>
-        <div class="nav-header">
-          <a href="./index.html" >
-            PACK STACK
-          </a>
-          <button type="button" class="logo-btn" >
-            <i class="material-icons logo-icon">
-            format_align_right
-            </i>
-          </button>
-        </div>
-        <ul class="nav-links">
-        </ul>
-      </div>
-    </nav>
-  `;
+        <nav class="navbar">
+          <div class="nav-center"}>
+            <div class="nav-header">
+              <a href="./index.html" >
+                PACK STACK
+              </a>
+              <button type="button" class="logo-btn" >
+                <i class="material-icons logo-icon">
+                format_align_right
+                </i>
+              </button>
+            </div>
+            <ul class="nav-links">
+            </ul>
+          </div>
+        </nav>
+      `;
   pageHeader.querySelector('button').addEventListener('click', toggleNav);
   body.prepend(pageHeader);
   renderNavLinks();
 }
 
 function renderNavLinks() {
+  // Renders nav links in the header based on the user logged in status
   const navUl = document.querySelector('.nav-links');
   if (currentUser) {
     const homeLink = document.createElement('li');
@@ -81,7 +67,10 @@ function renderNavLinks() {
     logoutLink.innerText = `Logout`;
 
     homeLink.addEventListener('click', renderHomePage);
-    newPackLink.addEventListener('click', renderNewPackPage);
+    newPackLink.addEventListener('click', e => {
+      switchPage(e, 'pack-new-page');
+      renderNewPackPage();
+    });
     profileLink.addEventListener('click', renderProfilePage);
     logoutLink.addEventListener('click', logoutUser);
 
@@ -102,6 +91,34 @@ function renderLoginPage() {}
 function renderProfilePage() {}
 function renderNewPackPage() {}
 
+function toggleNav() {
+  const navUl = document.querySelector('.nav-links');
+  if (navUl.classList.contains('show-nav')) {
+    navUl.classList.remove('show-nav');
+  } else if (navUl.classList.contains('show-small-nav')) {
+    navUl.classList.remove('show-small-nav');
+  } else {
+    currentUser
+      ? navUl.classList.add('show-nav')
+      : navUl.classList.add('show-small-nav');
+  }
+}
+
+// LOGIN //
+function loginUser(e) {
+  e.preventDefault();
+  currentUser = e.target[0].value;
+  renderHeader();
+  const closeModal = document.querySelector('.close_modal');
+  closeModal.click();
+}
+
+function logoutUser() {
+  currentUser = null;
+  renderHeader();
+}
+
+// PACKS //
 function fetchPacks() {
   fetch('http://localhost:3000/packs')
     .then(resp => resp.json())
@@ -134,16 +151,7 @@ function renderPack(pack) {
   packsDiv.appendChild(packDiv);
 }
 
-function switchPage(e, pageId) {
-  const pages = ['home-page', 'pack-show-page', 'pack-new-page', 'user-page'];
-  pages.forEach(page => {
-    document.getElementById(page).style.display = 'none';
-  });
-  document.getElementById(pageId).style.display = 'block';
-}
-
-// modal
-
+// LOGIN MODAL //
 function attachModalListeners(modalEl) {
   modalEl.querySelector('.close_modal').addEventListener('click', toggleModal);
   modalEl.querySelector('.overlay').addEventListener('click', toggleModal);
@@ -159,8 +167,6 @@ function detachModalListeners(modalEl) {
 function toggleModal() {
   const modal = document.querySelector('.modal');
   let currentState = modal.style.display;
-
-  // If modal is visible, hide it. Else, display it.
   if (currentState === 'none') {
     modal.style.display = 'block';
     attachModalListeners(modal);
