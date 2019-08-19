@@ -3,6 +3,9 @@ const currentUser = null;
 document.addEventListener('DOMContentLoaded', () => {
   fetchPacks();
   renderHeader();
+
+  var loginButton = document.querySelector('#modal_opener');
+  loginButton.addEventListener('click', toggleModal);
 });
 
 function toggleNav() {
@@ -10,8 +13,12 @@ function toggleNav() {
   const navUl = document.querySelector('.nav-links');
   if (navUl.classList.contains('show-nav')) {
     navUl.classList.remove('show-nav');
+  } else if (navUl.classList.contains('show-small-nav')) {
+    navUl.classList.remove('show-small-nav');
   } else {
-    navUl.classList.add('show-nav');
+    currentUser
+      ? navUl.classList.add('show-nav')
+      : navUl.classList.add('show-small-nav');
   }
 }
 
@@ -58,6 +65,7 @@ function renderNavLinks() {
   } else {
     const loginLink = document.createElement('li');
     loginLink.innerText = `Login`;
+    loginLink.id = 'modal_opener';
     navUl.appendChild(loginLink);
   }
 }
@@ -100,10 +108,36 @@ function renderPack(pack) {
 
 function switchPage(e, pageId) {
   const pages = ['home-page', 'pack-show-page', 'pack-new-page', 'user-page'];
-
   pages.forEach(page => {
     document.getElementById(page).style.display = 'none';
   });
-
   document.getElementById(pageId).style.display = 'block';
+}
+
+// modal
+
+function attachModalListeners(modalEl) {
+  modalEl.querySelector('.close_modal').addEventListener('click', toggleModal);
+  modalEl.querySelector('.overlay').addEventListener('click', toggleModal);
+}
+
+function detachModalListeners(modalEl) {
+  modalEl
+    .querySelector('.close_modal')
+    .removeEventListener('click', toggleModal);
+  modalEl.querySelector('.overlay').removeEventListener('click', toggleModal);
+}
+
+function toggleModal() {
+  const modal = document.querySelector('.modal');
+  let currentState = modal.style.display;
+
+  // If modal is visible, hide it. Else, display it.
+  if (currentState === 'none') {
+    modal.style.display = 'block';
+    attachModalListeners(modal);
+  } else {
+    modal.style.display = 'none';
+    detachModalListeners(modal);
+  }
 }
