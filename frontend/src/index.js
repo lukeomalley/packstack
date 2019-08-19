@@ -1,6 +1,5 @@
-// TODO: create renderLoginPage function
-// TODO: create renderUserPage function
-// TODO: create renderNewPackPage function
+const currentUser = null;
+
 document.addEventListener('DOMContentLoaded', () => {
   fetchPacks();
   renderHeader();
@@ -8,17 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function toggleNav() {
   console.log('toggle nav');
-  const navButton = document.querySelector('.nav-links');
-  if (navButton.classList.contains('show-nav')) {
-    navButton.classList.remove('show-nav');
+  const navUl = document.querySelector('.nav-links');
+  if (navUl.classList.contains('show-nav')) {
+    navUl.classList.remove('show-nav');
   } else {
-    navButton.classList.add('show-nav');
+    navUl.classList.add('show-nav');
   }
 }
 
 function renderHeader() {
-  // TODO add click listener for toggle nav button
-  // TODO add click listeners for nav list elements
   const body = document.querySelector('body');
   const pageHeader = document.createElement('header');
   pageHeader.innerHTML = `
@@ -34,18 +31,35 @@ function renderHeader() {
             </i>
           </button>
         </div>
-        <ul
-          class="nav-links"
-        >
-          <li id="login">Login</li>
-          <li id="profile">Profile</li>
-          <li id="newPack">New Pack</li>
+        <ul class="nav-links">
         </ul>
       </div>
     </nav>
   `;
   pageHeader.querySelector('button').addEventListener('click', toggleNav);
   body.prepend(pageHeader);
+  renderNavLinks();
+}
+
+function renderNavLinks() {
+  const navUl = document.querySelector('.nav-links');
+  if (currentUser) {
+    const profileLink = document.createElement('li');
+    const newPackLink = document.createElement('li');
+    const homeLink = document.createElement('li');
+
+    homeLink.innerText = `Home`;
+    newPackLink.innerText = `New Pack`;
+    profileLink.innerText = `Profile`;
+
+    navUl.appendChild(homeLink);
+    navUl.appendChild(newPackLink);
+    navUl.appendChild(profileLink);
+  } else {
+    const loginLink = document.createElement('li');
+    loginLink.innerText = `Login`;
+    navUl.appendChild(loginLink);
+  }
 }
 
 function renderLoginPage() {}
@@ -68,7 +82,9 @@ function renderPack(pack) {
   packDiv.classList.add('pack-card');
   packDiv.dataset.id = pack.id;
   packDiv.innerHTML = `
-        <img src='../../backend/app/assets/images/${pack.image_url}' alt='Picture of ${pack.name}'>
+        <img src='../../backend/app/assets/images/${
+          pack.image_url
+        }' alt='Picture of ${pack.name}'>
         <div>
             <h2>${pack.name}</h2>
             <h3>${pack.category}</h3>
