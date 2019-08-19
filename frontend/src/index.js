@@ -5,21 +5,17 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchPacks();
   renderHeader();
 
-  const loginButton = document.querySelector('#modal_opener');
-  loginButton.addEventListener('click', () => toggleModal('login'));
-
   const loginForm = document.getElementById('login-form');
   loginForm.addEventListener('submit', loginUser);
 
-  const profileForm = document.getElementById('profile-form');
-  profileForm.addEventListener('submit', editUser);
-  // profileForm.querySelector("#edit-name").value = currentUser.name
-  // profileForm.querySelector("#edit-url").value = currentUser.image_url
+  document.getElementById('profile-form').addEventListener('submit', editUser);
+
+  renderLoginOptions();
+  document.getElementById('login-form').addEventListener('submit', loginUser);
 });
 
 function switchPage(pageId) {
-  // Switches the display property of the page passed in to block
-  // all other pages get set to display none
+  // switches the visible page to the one passed in
   const pages = ['home-page', 'pack-show-page', 'pack-new-page', 'user-page'];
   pages.forEach(page => {
     document.getElementById(page).style.display = 'none';
@@ -40,16 +36,20 @@ function toggleNav() {
   }
 }
 
-function loginUser(e) {
-  e.preventDefault();
-  currentUser = e.target[0].value;
-  renderHeader();
-  toggleModal('login');
+function fetchAllUsers() {
+  return fetch('http://localhost:3000/users').then(res => res.json());
 }
 
-function logoutUser() {
-  currentUser = null;
-  renderHeader();
+function renderLoginOptions() {
+  const userSelect = document.querySelector('#login-form select');
+  fetchAllUsers().then(users => {
+    users.map(user => {
+      const userOpt = document.createElement('option');
+      userOpt.value = user.id;
+      userOpt.innerText = user.name;
+      userSelect.appendChild(userOpt);
+    });
+  });
 }
 
 // PAGE HEADER //
@@ -102,15 +102,17 @@ function renderNavLinks() {
     profileLink.innerText = `Profile`;
     logoutLink.innerText = `Logout`;
 
-    homeLink.addEventListener('click', renderHomePage);
+    homeLink.addEventListener('click', () => switchPage('home-page'));
     newPackLink.addEventListener('click', e => {
       switchPage('pack-new-page');
       renderNewPackPage();
     });
+
     statsLink.addEventListener('click', e => {
       switchPage('stats-page');
       renderStatsPage();
     });
+
     profileLink.addEventListener('click', () => toggleModal('profile'));
     logoutLink.addEventListener('click', logoutUser);
 
@@ -122,17 +124,15 @@ function renderNavLinks() {
   } else {
     const loginLink = document.createElement('li');
     loginLink.innerText = `Login`;
-    loginLink.id = 'modal_opener';
+    loginLink.addEventListener('click', () => toggleModal('login'));
     navUl.appendChild(loginLink);
   }
 }
 
-function renderHomePage() {}
-
 function renderNewPackPage() {}
 
 function renderStatsPage() {
-  console.log("stats page here!")
+  console.log('stats page here!');
 }
 
 function toggleNav() {
@@ -151,15 +151,25 @@ function toggleNav() {
 // LOGIN //
 function loginUser(e) {
   e.preventDefault();
-  currentUser = e.target[0].value;
-  renderHeader();
-  const closeModal = document.querySelector('.close_modal');
-  closeModal.click();
+  setUser(e.target[0].value);
+  toggleModal('login');
 }
 
 function logoutUser() {
   currentUser = null;
   renderHeader();
+}
+
+function setUser(userId) {
+  fetch(`http://localhost:3000/users/${userId}`)
+    .then(res => res.json())
+    .then(user => {
+      currentUser = { id: user.id, name: user.name, image_url: user.image_url };
+      const profileForm = document.getElementById('profile-form');
+      profileForm.querySelector('#edit-name').value = currentUser.name;
+      profileForm.querySelector('#edit-url').value = currentUser.image_url;
+      renderHeader();
+    });
 }
 
 // PACKS //
@@ -227,26 +237,27 @@ function toggleModal(modalChoice) {
 }
 
 // EDIT USER //
-function editUser(e){
-  e.preventDefault()
+function editUser(e) {
+  e.preventDefault();
   const userData = {
-      user: {
+    user: {
       name: e.target[0].value,
-      image_url: e.target[1].value
-    }
+      image_url: e.target[1].value,
+    },
   };
   const configObj = {
-    method: "PATCH",
+    method: 'PATCH',
     headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
     },
-    body: JSON.stringify(userData)
+    body: JSON.stringify(userData),
   };
-  fetch("http://localhost:3000/users/73", configObj)
-  // fetch(`http://localhost:3000/users/${currentUser.id}`, configObj)
+  fetch(`http://localhost:3000/users/${currentUser.id}`, configObj)
     .then(resp => resp.json())
+    .then(user => setUser(user.id))
     .catch(function(error) {
-      alert("Invalid user info. Try again.");
-    });  
+      alert('Invalid user info. Try again.');
+    });
+  toggleModal('profile');
 }

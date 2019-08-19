@@ -203,6 +203,8 @@ h1 {
   text-align: center;
   cursor: pointer;
   grid-gap: 40px;
+  width: 85vw;
+  margin: 0 auto;
 }
 
 .deets-card {

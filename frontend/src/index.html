@@ -29,11 +29,7 @@
       <div class="modal_content">
         <h2>Select a User</h2>
         <form id="login-form">
-          <select name="user-form">
-            <option value="Bob">Bob</option>
-            <option value="Sally">Sally</option>
-            <option value="Tony">Tony</option>
-          </select>
+          <select name="user-form"></select>
           <button type="submit" class="btn-primary">Login</button>
         </form>
         <button title="Close" class="close_modal">
@@ -48,10 +44,10 @@
       <div class="modal_content">
         <h2>Edit Your Profile</h2>
         <form id="profile-form">
-          <label name="name" id="edit-name">Name</label>
-          <input type="text">
-          <label name="image_url" id="edit-url">Image URL</label>
-          <input type="text">
+          <label name="name">Name</label>
+          <input type="text" id="edit-name" />
+          <label name="image_url">Image URL</label>
+          <input type="text" id="edit-url" />
           <button type="submit" class="btn-primary">Edit</button>
         </form>
         <button title="Close" class="close_modal">
