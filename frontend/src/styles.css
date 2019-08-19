@@ -22,9 +22,10 @@
 body {
   font-family: "Poppins", sans-serif;
   color: var(--mainBlack);
-  background: var(--mainGrey);
+  background-color: #ffffff;
   font-size: 1rem;
-  margin: 20px;
+  margin: 0 20px;
+
 }
 h1,
 h2,
@@ -41,6 +42,22 @@ h1 {
   text-align: center;
 }
 
+/* ---------------------------------- BUTTONS ---------------------------------- */
+
+.btn-primary {
+  border: 1px solid black;
+  background: var(--mainBlack);
+  color: var(--mainWhite);
+  padding: 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--mainWhite);
+  color: var(--mainBlack);
+}
+
 /* ---------------------------------- HOMEPAGE ---------------------------------- */
 
 .packs-container {
@@ -54,6 +71,7 @@ h1 {
 .pack-card {
   display: grid;
   grid-template-rows: 1fr auto;
+  background: var(--mainWhite);
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   border-radius: 10px;
   transition: 0.3s;
@@ -81,10 +99,6 @@ h1 {
 }
 
 /* ---------------------------------- NAV BAR ---------------------------------- */
-
-header {
-  margin-bottom: 20px;
-}
 
 .nav-header {
   display: flex;
@@ -126,6 +140,10 @@ header {
   height: 175px;
 }
 
+.show-small-nav {
+  height: 70px;
+}
+
 .nav-links li {
   display: block;
   padding: 1rem 1.25rem;
@@ -148,7 +166,7 @@ header {
   }
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 792px) {
   .logo-btn {
     display: none;
   }
@@ -269,3 +287,96 @@ header {
 
 
 /* ---------------------------------- USER ---------------------------------- */
+
+
+
+/* ---------------------------------- LOGIN MODAL ---------------------------------- */
+
+*:focus {
+  outline: 0;
+}
+
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 990;
+}
+
+.modal .overlay {
+ /* grey transparent background for modal */
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 995;
+  background: rgba(0,0,0,0.7);
+}
+
+.modal .modal_content {
+  /* modal content page */
+  z-index: 999;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 90%;
+  overflow: auto;
+  background: #fff;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  width: 25vw; /* This just a default width */
+}
+
+.modal_content > h2 {
+  font-size: 28px;
+  font-weight: 200;
+  text-align: center;
+}
+
+.modal .modal_content > form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+  font-size: 28px;
+  font-weight: 200;
+  text-align: center;
+  width: 40%;
+  margin: 0 auto;
+}
+
+.modal .modal_content .buttons_wrapper {
+  padding: 20px;
+}
+
+.modal .close_modal {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  opacity: 0.5;
+  background: none;
+  border: none;
+  transition: opacity 0.2s ease;
+}
+
+.modal .close_modal:hover {
+  opacity: 0.9;
+}
+
+@media screen and (max-width: 928px) {
+  .modal .modal_content {
+    width: 50vw;
+  }
+}
+
+@media screen and (max-width: 528px) {
+  .modal .modal_content {
+    width: 80vw;
+  }
+}

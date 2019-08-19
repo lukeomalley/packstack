@@ -17,7 +17,9 @@ function renderPackDeets(pack) {
   packPageConatiner.innerHTML = `
   <div class="deets">
     <div class="deets-card">
-      <img src='../../backend/app/assets/images/${pack.image_url}' alt='Picture of ${pack.name.toLowerCase()}' class='deets-image'>
+      <img src='../../backend/app/assets/images/${
+        pack.image_url
+      }' alt='Picture of ${pack.name.toLowerCase()}' class='deets-image'>
       <h2>${pack.name}</h2>
     </div>
     <div class="deets-preview">

@@ -20,5 +20,24 @@
     <div id="user-page" style="display: none;"></div>
     <script src="index.js" style="display: none;"></script>
     <script src="pack.js" style="display: none;"></script>
+
+    <!-- LOGIN MODAL -->
+    <div class="modal" style="display: none">
+      <div class="overlay"></div>
+      <div class="modal_content">
+        <h2>Select a User</h2>
+        <form id="login-form">
+          <select name="user-form">
+            <option value="Bob">Bob</option>
+            <option value="Sally">Sally</option>
+            <option value="Tony">Tony</option>
+          </select>
+          <button type="submit" class="btn-primary">Login</button>
+        </form>
+        <button title="Close" class="close_modal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
   </body>
 </html>
