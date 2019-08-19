@@ -1,6 +1,7 @@
-let currentUser = null;
+let currentUser;
 
 document.addEventListener('DOMContentLoaded', () => {
+  currentUser = null;
   fetchPacks();
   renderHeader();
 
@@ -11,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loginForm.addEventListener('submit', loginUser);
 });
 
-function switchPage(e, pageId) {
+function switchPage(pageId) {
   // Switches the display property of the page passed in to block
   // all other pages get set to display none
   const pages = ['home-page', 'pack-show-page', 'pack-new-page', 'user-page'];
@@ -55,23 +56,26 @@ function renderHeader() {
   }
   const pageHeader = document.createElement('header');
   pageHeader.innerHTML = `
-        <nav class="navbar">
-          <div class="nav-center"}>
-            <div class="nav-header">
-              <a href="./index.html" >
-                PACK STACK
-              </a>
-              <button type="button" class="logo-btn" >
-                <i class="material-icons logo-icon">
-                format_align_right
-                </i>
-              </button>
-            </div>
-            <ul class="nav-links">
-            </ul>
-          </div>
-        </nav>
-      `;
+    <nav class="navbar">
+      <div class="nav-center"}>
+        <div class="nav-header">
+          <a>
+            PACK STACK
+          </a>
+          <button type="button" class="logo-btn" >
+            <i class="material-icons logo-icon">
+            format_align_right
+            </i>
+          </button>
+        </div>
+        <ul class="nav-links">
+        </ul>
+      </div>
+    </nav>
+  `;
+  pageHeader
+    .querySelector('a')
+    .addEventListener('click', () => switchPage('home-page'));
   pageHeader.querySelector('button').addEventListener('click', toggleNav);
   body.prepend(pageHeader);
   renderNavLinks();
@@ -93,7 +97,7 @@ function renderNavLinks() {
 
     homeLink.addEventListener('click', renderHomePage);
     newPackLink.addEventListener('click', e => {
-      switchPage(e, 'pack-new-page');
+      switchPage('pack-new-page');
       renderNewPackPage();
     });
 
@@ -170,7 +174,7 @@ function renderPack(pack) {
         </div>
         `;
   packDiv.addEventListener('click', e => {
-    switchPage(e, 'pack-show-page');
+    switchPage('pack-show-page');
     renderPackPage(packDiv.dataset.id);
   });
   packsDiv.appendChild(packDiv);

@@ -111,6 +111,7 @@ h1 {
   text-decoration: none;
   font-size: 28px;
   color: var(--mainBlack);
+  cursor: pointer;
 }
 
 .logo-btn {
