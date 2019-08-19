@@ -175,7 +175,90 @@ header {
 
 /* ---------------------------------- PACK SHOW ---------------------------------- */
 
+.deets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  border-radius: 10px;
+  transition: 0.3s; 
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  grid-gap: 40px;
+}
 
+.deets-card {
+  display: grid;
+  max-width: 600px;
+  background: var(--mainWhite);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 10px;
+  transition: 0.3s;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.deets-image {
+  width: 100%;
+  max-width: 600px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.deets-preview {
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+#start-form {
+  max-width: 500px;
+  padding: 10px 20px;
+  background: var(--offWhite);
+  margin: 50px auto;
+  border-radius: 8px;
+}
+#start-form label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+#start-stuff {
+  display: flex;
+}
+#start-form input[type="number"]{
+  background: var(--mainGrey);
+  border: none;
+  border-radius: 6px;
+  font-size: 30px;
+  padding: 10px;
+  width: 30%;
+  margin: 30px;
+}
+#start-form input[type="number"]:focus{
+  outline: none;
+}
+.start-form-bttn {
+	background: linear-gradient(to bottom, var(--mainGrey) 5%, var(--darkGrey) 100%);
+	border-radius: 6px;
+	cursor: pointer;
+	color: var(--mainBlack);
+	font-size: 16px;
+	font-weight: bold;
+  padding: 14px;
+  width: 30%;
+  margin: 30px;
+}
+.start-form-bttn:hover {
+	background: linear-gradient(to bottom, var(--darkGrey) 5%, var(--mainGrey) 100%);
+}
+.start-form-bttn:active {
+	position: relative;
+	top: 1px;
+}
 
 /* ---------------------------------- PACK EDIT ---------------------------------- */
 
