@@ -143,7 +143,59 @@ function renderNavLinks() {
 function renderNewPackPage() {}
 
 function renderStatsPage() {
-  console.log('stats page here!');
+  const statsPage = document.querySelector('#stats-page');
+  statsPage.innerHTML = `
+    <div id="global-stats">
+      <h1>Global Stats</h1>
+      <table id="global-stats-table">
+        <tr>
+          <th>Category</th>
+          <th>Stat</th> 
+        </tr>
+        <tr>
+          <td>Total correct card views</td>
+          <td>55%</td> 
+        </tr>
+        <tr>
+          <td>Total "thought they knew" card views</td>
+          <td>20%</td> 
+        </tr>
+        <tr>
+          <td>Total wrong card views</td>
+          <td>25%</td> 
+        </tr>
+        <tr>
+          <td>Total card views</td>
+          <td>4938</td> 
+        </tr>
+      </table>
+    </div>
+    <div id="your-stats">
+      <h1>Your Stats</h1>
+      <table id="your-stats-table">
+        <tr>
+          <th>Category</th>
+          <th>Stat</th> 
+        </tr>
+        <tr>
+          <td>Your correct card views</td>
+          <td>60%</td>
+        </tr>
+        <tr>
+          <td>Your "thought you knew" card views</td>
+          <td>30%</td> 
+        </tr>
+        <tr>
+          <td>Your wrong card views</td>
+          <td>10%</td> 
+        </tr>
+        <tr>
+          <td>Your card views</td>
+          <td>438</td> 
+        </tr>
+      </table>
+    </div>
+  `;
 }
 
 // LOGIN //
