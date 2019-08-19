@@ -323,6 +323,10 @@ h1 {
   z-index: 990;
 }
 
+.profile label {
+  font-size: 12px;
+}
+
 .modal .overlay {
  /* grey transparent background for modal */
   position: absolute;
@@ -338,7 +342,7 @@ h1 {
   /* modal content page */
   z-index: 999;
   position: absolute;
-  top: 25%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   max-height: 90%;
@@ -356,7 +360,7 @@ h1 {
   text-align: center;
 }
 
-.modal .modal_content > form {
+#login-form, #profile-form {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 20px;
@@ -365,6 +369,7 @@ h1 {
   text-align: center;
   width: 40%;
   margin: 0 auto;
+  justify-content: center;
 }
 
 .modal .modal_content .buttons_wrapper {
