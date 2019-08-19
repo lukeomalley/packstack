@@ -35,22 +35,22 @@ class PacksController < ApplicationController
     params.require(:packs).permit(:id, :name, :description, :image_url, :category, :user_id)
   end
 
-  def packs_serializer_options 
+  def packs_serializer_options
     {
-      :include => {
-        :user => {:only =>[:name, :image_url]},
+      include: {
+        user: { only: %i[name image_url] }
       },
-      :except => [:updated_at]
+      except: [:updated_at]
     }
   end
 
   def pack_serializer_options
     {
-      :include => {
-        :user => {:only =>[:name, :image_url]},
-        :cards => {:only => [:question, :answer, :is_multi, :options, :image_url]}
+      include: {
+        user: { only: %i[name image_url] },
+        cards: { only: %i[question answer is_multi options image_url] }
       },
-      :except => [:updated_at]
+      except: [:updated_at]
     }
   end
 end

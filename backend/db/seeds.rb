@@ -334,6 +334,6 @@ c288 = Card.create(question: 'What are presidents?', answer: 'Presidents', is_mu
 # views
 
 # this array, sampled, will give the desired proportions of right/presumed/wrong
-results = ["right", "right", "right", "right", "presumed", "presumed", "presumed", "wrong", "wrong"]
+results = %w[right right right right presumed presumed presumed wrong wrong]
 
-2000.times do (View.create(result: results.sample, user: User.all.sample, card: Card.all.sample)) end
+2000.times { View.create(result: results.sample, user: User.all.sample, card: Card.all.sample) }
