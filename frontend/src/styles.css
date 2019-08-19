@@ -47,6 +47,8 @@ h1 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 20px;
+  width: 70vw;
+  margin: 0 auto;
 }
 
 .pack-card {
@@ -71,6 +73,10 @@ h1 {
 }
 
 /* ---------------------------------- NAV BAR ---------------------------------- */
+
+header {
+  margin-bottom: 20px;
+}
 
 .nav-header {
   display: flex;
@@ -131,7 +137,7 @@ h1 {
   .logo-btn {
     display: none;
   }
-  
+
   .nav-center {
     max-width: 1170px;
     margin: 0 auto;
