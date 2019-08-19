@@ -1,3 +1,5 @@
+// const ancientgreece = require('./frontend/assets/images/ancientgreece.jpg')
+
 document.addEventListener('DOMContentLoaded', () => {
   console.log('yo.');
   fetchPacks();
@@ -17,7 +19,7 @@ function renderPack(pack) {
   packDiv.classList.add('pack-card');
   packDiv.dataset.id = pack.id;
   packDiv.innerHTML = `
-        <img src=${pack.image_url}>
+        <img src='../../backend/app/assets/images/${pack.image_url}' alt='Picture of ${pack.name}'>
         <div>
             <h2>${pack.name}</h2>
             <h3>${pack.category}</h3>
