@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(:id)
+    user = User.find(params[:id])
     if user.update(user_params)
       render json: user
     else
@@ -36,6 +36,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:id, :name, :image_url)
+    params.require(:user).permit(:name, :image_url)
   end
 end

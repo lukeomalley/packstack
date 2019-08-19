@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const loginForm = document.getElementById('login-form');
   loginForm.addEventListener('submit', loginUser);
+
+  const profileForm = document.getElementById('profile-form');
+  profileForm.addEventListener('submit', editUser);
+  // profileForm.querySelector("#edit-name").value = currentUser.name
+  // profileForm.querySelector("#edit-url").value = currentUser.image_url
 });
 
 function switchPage(pageId) {
@@ -87,11 +92,13 @@ function renderNavLinks() {
   if (currentUser) {
     const homeLink = document.createElement('li');
     const newPackLink = document.createElement('li');
+    const statsLink = document.createElement('li');
     const profileLink = document.createElement('li');
     const logoutLink = document.createElement('li');
 
     homeLink.innerText = `Home`;
     newPackLink.innerText = `New Pack`;
+    statsLink.innerText = `Stats`;
     profileLink.innerText = `Profile`;
     logoutLink.innerText = `Logout`;
 
@@ -100,12 +107,16 @@ function renderNavLinks() {
       switchPage('pack-new-page');
       renderNewPackPage();
     });
-
+    statsLink.addEventListener('click', e => {
+      switchPage('stats-page');
+      renderStatsPage();
+    });
     profileLink.addEventListener('click', () => toggleModal('profile'));
     logoutLink.addEventListener('click', logoutUser);
 
     navUl.appendChild(homeLink);
     navUl.appendChild(newPackLink);
+    navUl.appendChild(statsLink);
     navUl.appendChild(profileLink);
     navUl.appendChild(logoutLink);
   } else {
@@ -119,6 +130,10 @@ function renderNavLinks() {
 function renderHomePage() {}
 
 function renderNewPackPage() {}
+
+function renderStatsPage() {
+  console.log("stats page here!")
+}
 
 function toggleNav() {
   const navUl = document.querySelector('.nav-links');
@@ -170,7 +185,7 @@ function renderPack(pack) {
         <div>
             <h2>${pack.name}</h2>
             <h3>${pack.category}</h3>
-            <h3>${pack.user.name}</h3>
+            <h5>by ${pack.user.name}</h5>
         </div>
         `;
   packDiv.addEventListener('click', e => {
@@ -181,7 +196,6 @@ function renderPack(pack) {
 }
 
 // MODAL //
-
 function attachModalListeners(modalEl, modalChoice) {
   modalEl
     .querySelector('.close_modal')
@@ -210,4 +224,29 @@ function toggleModal(modalChoice) {
     modal.style.display = 'none';
     detachModalListeners(modal, modalChoice);
   }
+}
+
+// EDIT USER //
+function editUser(e){
+  e.preventDefault()
+  const userData = {
+      user: {
+      name: e.target[0].value,
+      image_url: e.target[1].value
+    }
+  };
+  const configObj = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(userData)
+  };
+  fetch("http://localhost:3000/users/73", configObj)
+  // fetch(`http://localhost:3000/users/${currentUser.id}`, configObj)
+    .then(resp => resp.json())
+    .catch(function(error) {
+      alert("Invalid user info. Try again.");
+    });  
 }

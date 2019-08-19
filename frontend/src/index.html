@@ -17,6 +17,7 @@
     </div>
     <div id="pack-show-page" style="display: none;"></div>
     <div id="pack-new-page" style="display: none;"></div>
+    <div id="stats-page" style="display: none;"></div>
     <div id="user-page" style="display: none;"></div>
     <script src="index.js" style="display: none;"></script>
     <script src="pack.js" style="display: none;"></script>
@@ -47,9 +48,9 @@
       <div class="modal_content">
         <h2>Edit Your Profile</h2>
         <form id="profile-form">
-          <label name="name">Name</label>
+          <label name="name" id="edit-name">Name</label>
           <input type="text">
-          <label name="image_url">Image URL</label>
+          <label name="image_url" id="edit-url">Image URL</label>
           <input type="text">
           <button type="submit" class="btn-primary">Edit</button>
         </form>
