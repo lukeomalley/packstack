@@ -47,7 +47,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 20px;
-  width: 70vw;
+  width: 85vw;
   margin: 0 auto;
 }
 
