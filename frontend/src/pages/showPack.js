@@ -1,11 +1,9 @@
 function renderPackPage(packId) {
-  fetchPack(packId);
+  fetchPack(packId).then(renderPackDeets);
 }
 
 function fetchPack(id) {
-  return fetch(`http://localhost:3000/packs/${id}`)
-    .then(resp => resp.json())
-    .then(renderPackDeets);
+  return fetch(`http://localhost:3000/packs/${id}`).then(resp => resp.json());
 }
 
 function renderPackDeets(pack) {
@@ -53,5 +51,13 @@ function renderPackDeets(pack) {
     </div>
   </div>
   `;
-  document.getElementById("start-form").addEventListener("submit", (e) => packPlay(e, pack));
+  packPageConatiner
+    .querySelector('.pack-edit')
+    .addEventListener('click', () => {
+      switchPage('pack-edit-page');
+      renderEditPackPage(pack.id);
+    });
+  document
+    .getElementById('start-form')
+    .addEventListener('submit', e => packPlay(e, pack));
 }
