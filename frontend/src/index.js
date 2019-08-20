@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function switchPage(pageId) {
   // switches the visible page to the one passed in
-  const pages = ['home-page', 'pack-show-page', 'stats-page', 'pack-new-page', 'user-page'];
+  const pages = ['home-page', 'pack-show-page', 'pack-new-page', 'pack-play-page', 'stats-page'];
   pages.forEach(page => {
     document.getElementById(page).style.display = 'none';
   });
@@ -42,6 +42,7 @@ function fetchAllUsers() {
 
 function renderLoginOptions() {
   const userSelect = document.querySelector('#login-form select');
+  userSelect.innerHTML = ""
   fetchAllUsers().then(users => {
     users.map(user => {
       const userOpt = document.createElement('option');
@@ -140,47 +141,7 @@ function renderNavLinks() {
   }
 }
 
-function renderNewPackPage() {}
-
-function renderStatsPage() {
-  const statsPage = document.querySelector('#stats-page');
-  statsPage.innerHTML = `
-    <h1>Global Stats</h1>
-    <div class="stats-table">
-      <div>
-        <div class="table-cell heading-cell">Category</div>
-        <div class="table-cell">Total correct card views</div>
-        <div class="table-cell">Total "thought they knew" card views</div>
-        <div class="table-cell">Total wrong card views</div>
-        <div class="table-cell">Total card views</div>
-      </div>
-      <div>
-        <div class="table-cell heading-cell stat-cell">Stat</div> 
-        <div class="table-cell stat-cell">55%</div> 
-        <div class="table-cell stat-cell">20%</div> 
-        <div class="table-cell stat-cell">25%</div> 
-        <div class="table-cell stat-cell">4938</div> 
-      </div>
-    </div>
-    <h1>Your Stats</h1>
-    <div class="stats-table">
-      <div>
-        <div class="table-cell heading-cell">Category</div>
-        <div class="table-cell">Your correct card views</div>
-        <div class="table-cell">Your "thought you knew" card views</div>
-        <div class="table-cell">Your wrong card views</div>
-        <div class="table-cell">Your card views</div>
-      </div>
-      <div>
-        <div class="table-cell heading-cell stat-cell">Stat</div> 
-        <div class="table-cell stat-cell">60%</div>
-        <div class="table-cell stat-cell">30%</div> 
-        <div class="table-cell stat-cell">10%</div> 
-        <div class="table-cell stat-cell">438</div> 
-      </div>
-    </div>
-  `;
-}
+// function renderNewPackPage() {}
 
 // LOGIN //
 function loginUser(e) {
@@ -289,7 +250,10 @@ function editUser(e) {
   };
   fetch(`http://localhost:3000/users/${currentUser.id}`, configObj)
     .then(resp => resp.json())
-    .then(user => setUser(user.id))
+    .then(user => {
+      setUser(user.id);
+      renderLoginOptions();
+    })
     .catch(function(error) {
       alert('Invalid user info. Try again.');
     });

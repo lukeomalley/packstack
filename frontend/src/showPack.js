@@ -53,4 +53,5 @@ function renderPackDeets(pack) {
     </div>
   </div>
   `;
+  document.getElementById("start-form").addEventListener("submit", packPlay);
 }
