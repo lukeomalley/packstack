@@ -51,7 +51,7 @@ function renderEditPackPage(packId) {
         <div class="cards-container"></div>
         <div class="edit-card-form"></div>
         <hr />
-        <div class="add-cards-form">
+        <div class="add-cards-container">
           <h2>Add Cards</h2>
             <p>Select a card type:</p>
             <label>Free Response</label>
@@ -168,7 +168,7 @@ function renderFreeResponseForm() {
   const cardForm = document.querySelector('#card-form');
   cardForm.innerHTML = ``;
   cardForm.innerHTML = `
-    <form>
+    <form class="new-card-form">
       <input type="hidden" name="is_multi" value="false" />
 
       <label for="question">Question</label>
@@ -185,7 +185,7 @@ function renderMultipleChoiceForm() {
   const cardForm = document.querySelector('#card-form');
   cardForm.innerHTML = ``;
   cardForm.innerHTML = `
-  <form>
+  <form class="new-card-form">
     <input type="hidden" name="is_multi" value="true" />
     <label for="question">Queston</label>
     <input type="text" name="queston" />

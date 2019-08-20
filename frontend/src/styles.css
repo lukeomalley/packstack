@@ -24,8 +24,9 @@ body {
   color: var(--mainBlack);
   background-color: #ffffff;
   font-size: 1rem;
-  margin: 0 20px;
-
+  margin: 0;
+  height: 100%;
+  margin-bottom: -50px;
 }
 h1,
 h2,
@@ -373,7 +374,8 @@ hr {
 }
 
 .edit-pack-form, 
-.edit-card-form  {
+.edit-card-form,
+.new-card-form  {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr;
@@ -384,7 +386,8 @@ hr {
 
 
 .edit-pack-form input[type=text], 
-.edit-card-form input[type=text] {
+.edit-card-form input[type=text],
+.new-card-form input[type=text] {
   width: 70%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -399,11 +402,18 @@ hr {
 .edit-card-form input[type=text] {
   width: 40%;
 }
+.new-card-form input[type=text] {
+  width: 40%;
+}
 
 .cards-container {
   display: inline-flex;
   width: 100%;
   margin-bottom: 20px;
+}
+
+.add-cards-container > h2 {
+  text-align: center;
 }
 
 .card {
@@ -439,6 +449,13 @@ hr {
 
   .edit-header {
     grid-template-columns: 1fr;
+  }
+
+  .edit-card-form input[type=text] {
+    width: 80%;
+  }
+  .new-card-form input[type=text] {
+    width: 80%;
   }
 }
 
@@ -565,4 +582,14 @@ hr {
   .modal .modal_content {
     width: 80vw;
   }
+}
+
+/* ---------------------------------- LOGIN MODAL ---------------------------------- */
+.footer {
+  margin-top: 30px;
+  background: var(--mainBlack);
+  padding: 2rem;
+  text-align: center;
+  height: 50px;
+  color: var(--mainWhite);
 }
