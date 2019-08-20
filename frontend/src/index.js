@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function switchPage(pageId) {
   // switches the visible page to the one passed in
-  const pages = ['home-page', 'pack-show-page', 'pack-new-page', 'user-page'];
+  const pages = ['home-page', 'pack-show-page', 'stats-page', 'pack-new-page', 'user-page'];
   pages.forEach(page => {
     document.getElementById(page).style.display = 'none';
   });
@@ -145,55 +145,39 @@ function renderNewPackPage() {}
 function renderStatsPage() {
   const statsPage = document.querySelector('#stats-page');
   statsPage.innerHTML = `
-    <div id="global-stats">
-      <h1>Global Stats</h1>
-      <table id="global-stats-table">
-        <tr>
-          <th>Category</th>
-          <th>Stat</th> 
-        </tr>
-        <tr>
-          <td>Total correct card views</td>
-          <td>55%</td> 
-        </tr>
-        <tr>
-          <td>Total "thought they knew" card views</td>
-          <td>20%</td> 
-        </tr>
-        <tr>
-          <td>Total wrong card views</td>
-          <td>25%</td> 
-        </tr>
-        <tr>
-          <td>Total card views</td>
-          <td>4938</td> 
-        </tr>
-      </table>
+    <h1>Global Stats</h1>
+    <div class="stats-table">
+      <div>
+        <div class="table-cell heading-cell">Category</div>
+        <div class="table-cell">Total correct card views</div>
+        <div class="table-cell">Total "thought they knew" card views</div>
+        <div class="table-cell">Total wrong card views</div>
+        <div class="table-cell">Total card views</div>
+      </div>
+      <div>
+        <div class="table-cell heading-cell stat-cell">Stat</div> 
+        <div class="table-cell stat-cell">55%</div> 
+        <div class="table-cell stat-cell">20%</div> 
+        <div class="table-cell stat-cell">25%</div> 
+        <div class="table-cell stat-cell">4938</div> 
+      </div>
     </div>
-    <div id="your-stats">
-      <h1>Your Stats</h1>
-      <table id="your-stats-table">
-        <tr>
-          <th>Category</th>
-          <th>Stat</th> 
-        </tr>
-        <tr>
-          <td>Your correct card views</td>
-          <td>60%</td>
-        </tr>
-        <tr>
-          <td>Your "thought you knew" card views</td>
-          <td>30%</td> 
-        </tr>
-        <tr>
-          <td>Your wrong card views</td>
-          <td>10%</td> 
-        </tr>
-        <tr>
-          <td>Your card views</td>
-          <td>438</td> 
-        </tr>
-      </table>
+    <h1>Your Stats</h1>
+    <div class="stats-table">
+      <div>
+        <div class="table-cell heading-cell">Category</div>
+        <div class="table-cell">Your correct card views</div>
+        <div class="table-cell">Your "thought you knew" card views</div>
+        <div class="table-cell">Your wrong card views</div>
+        <div class="table-cell">Your card views</div>
+      </div>
+      <div>
+        <div class="table-cell heading-cell stat-cell">Stat</div> 
+        <div class="table-cell stat-cell">60%</div>
+        <div class="table-cell stat-cell">30%</div> 
+        <div class="table-cell stat-cell">10%</div> 
+        <div class="table-cell stat-cell">438</div> 
+      </div>
     </div>
   `;
 }
