@@ -46,7 +46,11 @@ function renderNewPackPage() {
 function renderFreeResponseForm() {
   const cardForm = document.querySelector('#card-form');
   cardForm.innerHTML = `
-  
+    <form>
+      <input type="text" name="question" />
+      <input type="text" name="answer" />
+      <input type="text" name="options" />
+    </form>
   `;
   const freeResponseForm = document.createElement('form');
   freeResponseForm.innerText = 'free response form';
