@@ -33,6 +33,7 @@ function renderNewPackPage() {
       <div id="card-form"></div>
     </div>
   `;
+
   newPackDiv
     .querySelector('#free-response')
     .addEventListener('change', renderFreeResponseForm);
@@ -44,7 +45,9 @@ function renderNewPackPage() {
 
 function renderFreeResponseForm() {
   const cardForm = document.querySelector('#card-form');
-  cardForm.innerHTML = ``;
+  cardForm.innerHTML = `
+  
+  `;
   const freeResponseForm = document.createElement('form');
   freeResponseForm.innerText = 'free response form';
   cardForm.appendChild(freeResponseForm);
