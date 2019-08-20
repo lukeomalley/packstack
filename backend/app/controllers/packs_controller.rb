@@ -13,7 +13,7 @@ class PacksController < ApplicationController
   def create
     pack = Pack.new(pack_params)
     if pack.save!
-      render json: pack
+      render json: pack.to_json(pack_serializer_options)
     else
       render json: { error: 'try again next time pal' }
     end
@@ -22,7 +22,7 @@ class PacksController < ApplicationController
   def update
     pack = Pack.find(params[:id])
     pack.update(pack_params)
-    render json: pack
+    render json: pack.to_json(pack_serializer_options)
   end
 
   def destroy
@@ -32,7 +32,7 @@ class PacksController < ApplicationController
   private
 
   def pack_params
-    params.require(:packs).permit(:id, :name, :description, :image_url, :category, :user_id)
+    params.require(:packs).permit(:name, :description, :image_url, :category, :user_id)
   end
 
   def packs_serializer_options

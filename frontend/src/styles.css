@@ -303,8 +303,43 @@ span {
 }
 
 /* ---------------------------------- PACK EDIT ---------------------------------- */
+.pack-page-container {
+  width: 80vw;
+  margin: 0 auto;
+}
+.new-pack-form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+  margin: 0 auto;
+  justify-items: center;
+  text-align: left;
+}
+.new-pack-form input[type=text] {
+  width: 70%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+.new-pack-form input[type=text] {
+  width: 70%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
 
-
+@media screen and (max-width: 528px) {
+  .pack-page-container {
+    width: 90vw;
+  }
+}
 
 /* ---------------------------------- PACK PLAY ---------------------------------- */
 

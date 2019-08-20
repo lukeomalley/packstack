@@ -16,7 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function switchPage(pageId) {
   // switches the visible page to the one passed in
-  const pages = ['home-page', 'pack-show-page', 'pack-new-page', 'pack-play-page', 'stats-page'];
+  const pages = [
+    'home-page',
+    'pack-show-page',
+    'pack-new-page',
+    'pack-edit-page',
+    'pack-play-page',
+    'stats-page',
+  ];
   pages.forEach(page => {
     document.getElementById(page).style.display = 'none';
   });
@@ -42,7 +49,7 @@ function fetchAllUsers() {
 
 function renderLoginOptions() {
   const userSelect = document.querySelector('#login-form select');
-  userSelect.innerHTML = ""
+  userSelect.innerHTML = '';
   fetchAllUsers().then(users => {
     users.map(user => {
       const userOpt = document.createElement('option');
