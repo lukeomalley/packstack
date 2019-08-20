@@ -48,7 +48,7 @@ class PacksController < ApplicationController
     {
       include: {
         user: { only: %i[name image_url] },
-        cards: { only: %i[question answer is_multi options image_url] }
+        cards: { only: %i[question answer is_multi options image_url id] }
       },
       except: [:updated_at]
     }
