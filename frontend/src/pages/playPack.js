@@ -75,11 +75,12 @@ function renderMultiOption(pack, currentCardNum, card, option, answerId){
   newButton.id = answerId
   newButton.value = option
   newButton.innerText = option
+  newButton.className = "pack-bttn"
   newButton.addEventListener("click", (e) => {
     recordView(e, pack, card, e.target.value);
     renderMultiAnswer(pack, currentCardNum, card, e.target.value);
   });
-  multiChoice.appendChild(newButton)
+  multiChoice.prepend(newButton)
 }
 
 function recordView(e, pack, card, answer){
