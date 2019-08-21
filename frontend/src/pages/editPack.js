@@ -143,6 +143,7 @@ function deletePack(e, pack) {
 function renderCards(packId) {
   fetchPack(packId).then(pack => {
     const cardsDiv = document.querySelector('.cards-container');
+    debugger;
     cardsDiv.innerHTML = ``;
     if (pack.cards.length > 0) {
       pack.cards.forEach(card => {
@@ -188,13 +189,19 @@ function renderEditMultiCardForm(card) {
     <div>
       <button class="btn-primary">Update Card 🃏</button>
       <button id="cancel-button" class="btn-primary">Cancel ❌</button>
-      <button id="delete-button" class="btn-primary">Delete Card 🗑</button>
+      <button id="delete-button" class="btn-primary" data-id="${
+        card.id
+      }">Delete Card 🗑</button>
     </div>
   </form>
   `;
   cardEditForm
     .querySelector('#cancel-button')
     .addEventListener('click', clearEditForm);
+
+  cardEditForm
+    .querySelector('#delete-button')
+    .addEventListener('click', deleteCard);
 
   cardEditForm
     .querySelector('form')
@@ -240,7 +247,9 @@ function renderEditFreeCardForm(card) {
       <div>
         <button class="btn-primary">Update Card 🃏</button>
         <button id="cancel-button" class="btn-primary">Cancel ❌</button>
-        <button id="delete-button" class="btn-primary">Delete Card 🗑</button>
+        <button id="delete-button" class="btn-primary" data-id="${
+          card.id
+        }">Delete Card 🗑</button>
       </div>
     </form>
     `;
@@ -248,6 +257,10 @@ function renderEditFreeCardForm(card) {
   cardEditForm
     .querySelector('#cancel-button')
     .addEventListener('click', clearEditForm);
+
+  cardEditForm
+    .querySelector('#delete-button')
+    .addEventListener('click', deleteCard);
 
   cardEditForm
     .querySelector('form')
@@ -278,7 +291,20 @@ function updateFreeCard(e, card) {
     });
 }
 
-function deleteCard(e, card) {}
+function deleteCard(e) {
+  cardId = parseInt(e.currentTarget.dataset.id.split('-')[1], 10);
+  packId = parseInt(document.querySelector('.add-cards-container').id, 10);
+  fetch(`http://localhost:3000/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-type': 'application/json',
+      Accept: 'application/json',
+    },
+  }).then(() => {
+    renderCards(packId);
+    document.querySelector('#cancel-button').click();
+  });
+}
 
 function clearEditForm() {
   const cardEditForm = document.querySelector('.edit-card-form');
