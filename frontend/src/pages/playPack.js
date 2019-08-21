@@ -26,9 +26,29 @@ function nextCard(pack, currentCardNum) {
   if (currentCardNum < pack.cards.length) {
     routeByCardType(pack, currentCardNum);
   } else {
-    switchPage(stats);
+    renderFinish(pack, currentCardNum);
   }
 }
+
+function renderFinish(pack, currentCardNum){
+  finishDiv = document.getElementById("card-space");
+  finishDiv.innerHTML = `
+    <h2>Pack Completed</h2>
+    <h4>You've completed ${currentCardNum} cards. What next?</h4>
+    <button id="finish-home" class="pack-bttn">Home</button>
+    <button id="finish-stats" class="pack-bttn">Stats</button>
+    <button id="finish-redo" class="pack-bttn">Play Again</button>
+  `;
+  document.getElementById("finish-home")
+    .addEventListener("click", () => switchPage('home-page'));
+  document.getElementById("finish-stats")
+    .addEventListener("click", () => {
+      switchPage('stats-page');
+      renderStatsPage();
+  });
+  document.getElementById("finish-redo")
+  .addEventListener("click", (e) => {packPlay(e, pack)});
+};
 
 function routeByCardType(pack, currentCardNum) {
   let card = pack.cards[currentCardNum];
