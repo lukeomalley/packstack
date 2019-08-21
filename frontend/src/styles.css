@@ -389,7 +389,6 @@ hr {
   text-align: left;
 }
 
-
 .edit-pack-form input[type=text], 
 .edit-card-form input[type=text],
 .new-card-form input[type=text] {
@@ -407,8 +406,9 @@ hr {
 .edit-card-form input[type=text] {
   width: 40%;
 }
-.new-card-form input[type=text] {
-  width: 40%;
+
+#card-form {
+  width: 50vw;
 }
 
 .cards-container {
@@ -426,6 +426,14 @@ hr {
 
 .add-cards-container > h2 {
   text-align: center;
+}
+
+.new-card-type {
+  display: grid;
+  grid-column-gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-content: center;
 }
 
 .card {

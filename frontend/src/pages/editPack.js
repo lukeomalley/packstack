@@ -54,25 +54,21 @@ function renderEditPackPage(packId) {
         <div class="add-cards-container">
           <h2>Add Cards</h2>
             <p>Select a card type:</p>
-            <div>
-            <label style="margin-right: 20px;">Free Response</label>
-            <label style="margin-left: 20px;">Multiple</label>
-            </div>
-            <div>
-            <input
-              id="free-response"
-              type="radio"
-              name="form-type"
-              value="free-response"
-              style="margin-right: 10px;"
-            />
-            <input
-              id="multiple-choice"
-              type="radio"
-              name="form-type"
-              value="multiple-choice"
-              style="margin-left: 100px;"
-            />
+            <div class="new-card-type">
+              <label>Free Response</label>
+              <label>Multiple Choice</label>
+              <input
+                id="free-response"
+                type="radio"
+                name="form-type"
+                value="free-response"
+              />
+              <input
+                id="multiple-choice"
+                type="radio"
+                name="form-type"
+                value="multiple-choice"
+              />
             </div>
             <div id="card-form"></div>
           <div>
@@ -183,10 +179,12 @@ function renderFreeResponseForm() {
       <input type="hidden" name="is_multi" value="false" />
 
       <label for="question">Question</label>
-      <input type="text" name="question" />
+      <input type="text" name="question" placeholder="Question" />
 
-      <label for="answer">answer</label>
-      <input type="text" name="answer" />
+      <label for="answer">Answer</label>
+      <input type="text" name="answer" placeholder="Answer"/>
+
+      <button type="submit" class="btn-primary">Add Card</button>
     </form>
   `;
   cardForm.addEventListener('submit', createCard);
@@ -199,25 +197,14 @@ function renderMultipleChoiceForm() {
   <form class="new-card-form">
     <input type="hidden" name="is_multi" value="true" />
     <label for="question">Queston</label>
-    <input type="text" name="queston" />
-    <label for="question">Queston</label>
-    <input type="text" name="queston" />
-    <label for="options">Options:</label>
-    <input type="text" name="option" />
+    <input type="text" name="queston" placeholder="Question"/>
+    <label for="question">Answer</label>
+    <input type="text" name="answer" placeholder="Answer"/>
+    <label for="options">Options</label>
+    <input type="text" name="option" placeholder="Options|Separeted|By|Pipe"/>
+    <button type="submit" class="btn-primary">Add Card</button>
   </form>
-  <button>➕</button>
   `;
-  cardForm
-    .querySelector('button')
-    .addEventListener('click', () => addQuestionField(cardForm));
-}
-
-function addQuestionField(cardForm) {
-  const form = cardForm.querySelector('form');
-  const input = document.createElement('input');
-  input.type = 'text';
-  input.name = 'option';
-  form.appendChild(input);
 }
 
 function createCard() {}
