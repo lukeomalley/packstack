@@ -1,6 +1,6 @@
 function renderStatsPage() {
   const statsPage = document.querySelector('#stats-page');
-  statsPage.innerHTML = `
+  const globalStatsHTML = `
     <h1>Global Stats</h1>
     <div class="stats-table">
       <div>
@@ -18,6 +18,8 @@ function renderStatsPage() {
         <div class="table-cell stat-cell">4938</div> 
       </div>
     </div>
+    `;
+  const userStatsHTML = `
     <h1>Your Stats</h1>
     <div class="stats-table">
       <div>
@@ -36,4 +38,9 @@ function renderStatsPage() {
       </div>
     </div>
   `;
-}
+  if (!!currentUser){
+    statsPage.innerHTML = globalStatsHTML + userStatsHTML
+  } else {
+    statsPage.innerHTML = globalStatsHTML
+  }
+};

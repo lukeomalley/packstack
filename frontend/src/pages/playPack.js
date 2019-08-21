@@ -1,21 +1,25 @@
 function packPlay(e, pack){
   e.preventDefault()
-  switchPage("pack-play-page")
-  const packPlayConatiner = document.getElementById('pack-play-page');
-  packPlayConatiner.innerHTML = `
-    <div class="deets">
-      <div class="deets-card">
-        <img src='../../backend/app/assets/images/${
-          pack.image_url
-        }' alt='Picture of ${pack.name.toLowerCase()}' class='deets-image'>
-        <h2>${pack.name}</h2>
+  if (!!currentUser){
+    switchPage("pack-play-page")
+    const packPlayConatiner = document.getElementById('pack-play-page');
+    packPlayConatiner.innerHTML = `
+      <div class="deets">
+        <div class="deets-card">
+          <img src='../../backend/app/assets/images/${
+            pack.image_url
+          }' alt='Picture of ${pack.name.toLowerCase()}' class='deets-image'>
+          <h2>${pack.name}</h2>
+        </div>
+        <div id="card-space" class="deets-preview">
+        </div>
       </div>
-      <div id="card-space" class="deets-preview">
-      </div>
-    </div>
-  `;
-  let currentCardNum = 0
-  nextCard(pack, currentCardNum)
+    `;
+    let currentCardNum = 0
+    nextCard(pack, currentCardNum)
+  } else {
+    toggleModal('login')
+  }
 }
 
 function nextCard(pack, currentCardNum){
@@ -72,7 +76,6 @@ function renderMultiOption(pack, currentCardNum, card, option, answerId){
   const multiChoice = document.getElementById("answer-space")
   const newButton = document.createElement("button")
   newButton.name = card.id
-  console.log(card.id)
   newButton.id = answerId
   newButton.value = option
   newButton.innerText = option
