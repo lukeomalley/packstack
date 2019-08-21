@@ -17,7 +17,7 @@ function renderPackDeets(pack) {
       <div class="deets-card">
         <img src='${
           pack.image_url
-        }' alt='Picture of ${pack.name.toLowerCase()}' class='deets-image'>
+        }' alt='Picture of ${pack.name}' class='deets-image'>
         <h2>${pack.name}</h2>
       </div>
       <div class="deets-preview">
