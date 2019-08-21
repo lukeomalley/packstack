@@ -23,13 +23,7 @@ function renderPackDeets(pack) {
       <div class="deets-preview">
         <h2>${pack.description}</h2>
         <p>Created: ${createDate} by ${pack.user.name}</p>
-        <form id="start-form">
-          <label>Set timer per flashcard (sec)</label>
-          <div id="play">
-            <input type="number" placeholder="10"/>
-            <button class="pack-bttn">Start</button>
-          </div>
-        </form>
+        <button id="start-bttn" class="pack-bttn">Start</button>
         <button class="pack-bttn pack-edit">Edit Pack</button>
       </div>
       <div id="pack-stats" class="pack-stats">
@@ -66,6 +60,6 @@ function renderPackDeets(pack) {
       }
     });
   document
-    .getElementById('start-form')
-    .addEventListener('submit', e => packPlay(e, pack));
+    .getElementById('start-bttn')
+    .addEventListener('click', e => packPlay(e, pack));
 }
