@@ -2,8 +2,10 @@ let currentUser;
 
 document.addEventListener('DOMContentLoaded', () => {
   currentUser = null;
-  fetchPacks();
   renderHeader();
+  renderCategoryFilter();
+  renderUserFilter();
+  fetchPacks();
 
   const loginForm = document.getElementById('login-form');
   loginForm.addEventListener('submit', loginUser);
@@ -148,7 +150,56 @@ function renderNavLinks() {
   }
 }
 
-// function renderNewPackPage() {}
+// FILTERS //
+function renderCategoryFilter() {
+  fetch("http://localhost:3000/categories")
+    .then(resp => resp.json())
+    .then(categoryData => addCategorySelectOptions(categoryData.categories))
+  function addCategorySelectOptions(categoryArray){
+    const headerEl = document.querySelector("header");
+    const categoryFilterEl = document.createElement("select");
+    categoryFilterEl.innerHTML = "<option>All</option>"
+    headerEl.after(categoryFilterEl);
+    for (let i=0; i<categoryArray.length; i++){
+      const categoryOptionEl = document.createElement("option")
+      categoryOptionEl.value = categoryArray[i];
+      categoryOptionEl.innerText = categoryArray[i];
+      categoryFilterEl.appendChild(categoryOptionEl);
+    };
+    categoryFilterEl.addEventListener("change", (e) => {
+      if (e.target.value === "All"){
+        fetchPacks();
+      } else {
+        fetchCategoryPacks(e.target.value);
+      };
+    })
+  };
+};
+
+function renderUserFilter() {
+  fetch("http://localhost:3000/users")
+    .then(resp => resp.json())
+    .then(userArray => addUserSelectOptions(userArray))
+  function addUserSelectOptions(userArray){
+    const headerEl = document.querySelector("header");
+    const userFilterEl = document.createElement("select");
+    userFilterEl.innerHTML = "<option>All</option>"
+    headerEl.after(userFilterEl);
+    userArray.forEach(user => {
+      const userOptionEl = document.createElement("option")
+      userOptionEl.value = user.id;
+      userOptionEl.innerText = user.name;
+      userFilterEl.appendChild(userOptionEl);
+    });
+    userFilterEl.addEventListener("change", (e) => {
+      if (e.target.value === "All"){
+        fetchPacks();
+      } else {
+        fetchUserPacks(e.target.value);
+      };
+    });
+  };
+};
 
 // LOGIN //
 function loginUser(e) {
@@ -176,7 +227,24 @@ function setUser(userId) {
 
 // PACKS //
 function fetchPacks() {
+  document.getElementById("packs-container").innerHTML = "";
   fetch('http://localhost:3000/packs')
+    .then(resp => resp.json())
+    .then(renderPacks);
+}
+
+// worth merging into one fetchPacks funct?
+function fetchUserPacks(userId) {
+  document.getElementById("packs-container").innerHTML = "";
+  fetch(`http://localhost:3000/packs?user_id=${userId}`)
+    .then(resp => resp.json())
+    .then(renderPacks);
+}
+
+// worth merging into one fetchPacks funct?
+function fetchCategoryPacks(category) {
+  document.getElementById("packs-container").innerHTML = "";
+  fetch(`http://localhost:3000/packs?category=${category}`)
     .then(resp => resp.json())
     .then(renderPacks);
 }

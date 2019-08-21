@@ -2,8 +2,12 @@
 
 class PacksController < ApplicationController
   def index
-    packs = Pack.all
+    packs = Pack.filter(params.slice(:category, :user_id))
     render json: packs.to_json(packs_serializer_options)
+  end
+
+  def categories
+    render json: {categories: Pack.get_all_categories}
   end
 
   def show
