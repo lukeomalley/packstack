@@ -1,6 +1,7 @@
 function renderEditPackPage(packId) {
   fetchPack(packId).then(pack => {
     const editPackDiv = document.querySelector('#pack-edit-page');
+    editPackDiv.innerHTML = ``;
     editPackDiv.innerHTML = `
       <div class="pack-edit-page-container">
       <h2>Edit ${pack.name} Pack</h2>
@@ -143,7 +144,6 @@ function deletePack(e, pack) {
 function renderCards(packId) {
   fetchPack(packId).then(pack => {
     const cardsDiv = document.querySelector('.cards-container');
-    debugger;
     cardsDiv.innerHTML = ``;
     if (pack.cards.length > 0) {
       pack.cards.forEach(card => {
@@ -181,11 +181,11 @@ function renderEditMultiCardForm(card) {
   <form class="edit-pack-form">
     <input type="hidden" name="is_multi" value="true" />
     <label for="question">Queston</label>
-    <input type="text" name="queston" value="${card.question}" />
+    <input type="text" name="queston" value="${card.question}" required/>
     <label for="answer">Answer</label>
-    <input type="text" name="answer" value="${card.answer}" />
+    <input type="text" name="answer" value="${card.answer}" required/>
     <label for="options">Options</label>
-    <input type="text" name="option" value="${card.options}" />
+    <input type="text" name="option" value="${card.options}" required/>
     <div>
       <button class="btn-primary">Update Card 🃏</button>
       <button id="cancel-button" class="btn-primary">Cancel ❌</button>
@@ -239,11 +239,11 @@ function renderEditFreeCardForm(card) {
   cardEditForm.innerHTML = ``;
   cardEditForm.innerHTML = `
     <form class="edit-pack-form">
-      <input type="hidden" name="is_multi" value="true" />
+      <input type="hidden" name="is_multi" value="true" required/>
       <label for="question">Queston</label>
-      <input type="text" name="queston" value="${card.question}" />
+      <input type="text" name="queston" value="${card.question}" required/>
       <label for="answer">Answer</label>
-      <input type="text" name="answer" value="${card.answer}" />
+      <input type="text" name="answer" value="${card.answer}" required/>
       <div>
         <button class="btn-primary">Update Card 🃏</button>
         <button id="cancel-button" class="btn-primary">Cancel ❌</button>
@@ -302,7 +302,7 @@ function deleteCard(e) {
     },
   }).then(() => {
     renderCards(packId);
-    document.querySelector('#cancel-button').click();
+    clearEditForm();
   });
 }
 
@@ -317,17 +317,16 @@ function renderFreeResponseForm() {
   cardForm.innerHTML = `
     <form class="new-card-form">
       <input type="hidden" name="is_multi" value="false" />
-
       <label for="question">Question</label>
-      <input type="text" name="question" placeholder="Question" />
-
+      <input type="text" name="question" placeholder="Question" required/>
       <label for="answer">Answer</label>
-      <input type="text" name="answer" placeholder="Answer"/>
-
+      <input type="text" name="answer" placeholder="Answer" required/>
       <button type="submit" class="btn-primary">Add Card</button>
     </form>
   `;
-  cardForm.addEventListener('submit', createFreeResponseCard);
+  cardForm
+    .querySelector('form')
+    .addEventListener('submit', createFreeResponseCard);
 }
 
 function renderMultipleChoiceForm() {
@@ -337,15 +336,15 @@ function renderMultipleChoiceForm() {
   <form class="new-card-form">
     <input type="hidden" name="is_multi" value="true" />
     <label for="question">Queston</label>
-    <input type="text" name="queston" placeholder="Question"/>
+    <input type="text" name="queston" placeholder="Question" required/>
     <label for="question">Answer</label>
-    <input type="text" name="answer" placeholder="Answer"/>
+    <input type="text" name="answer" placeholder="Answer" required/>
     <label for="options">Options</label>
-    <input type="text" name="option" placeholder="Options | Separeted | By | Pipe"/>
+    <input type="text" name="option" placeholder="Options | Separeted | By | Pipe" required/>
     <button type="submit" class="btn-primary">Add Card</button>
   </form>
   `;
-  cardForm.addEventListener('submit', createMultiCard);
+  cardForm.querySelector('form').addEventListener('submit', createMultiCard);
 }
 
 function createMultiCard(e) {
@@ -370,9 +369,8 @@ function createMultiCard(e) {
     .then(res => res.json())
     .then(card => {
       renderCards(card.pack_id);
-      e.target[1].value = ``;
-      e.target[2].value = ``;
-      e.target[3].value = ``;
+      document.querySelector('#card-form').innerHTML = ``;
+      renderMultipleChoiceForm();
     });
 }
 
@@ -397,7 +395,7 @@ function createFreeResponseCard(e) {
     .then(res => res.json())
     .then(card => {
       renderCards(card.pack_id);
-      e.target[1].value = ``;
-      e.target[2].value = ``;
+      document.querySelector('#card-form').innerHTML = ``;
+      renderFreeResponseForm();
     });
 }
