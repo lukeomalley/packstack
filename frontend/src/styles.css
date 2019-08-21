@@ -409,13 +409,7 @@ hr {
 
 #card-form {
   width: 50vw;
-}
-
-.cards-container {
-  display: inline-flex;
-  width: 100%;
-  margin-bottom: 20px;
-  justify-content: center;
+  margin-bottom: 50px;
 }
 
 .add-cards-container {
@@ -434,22 +428,34 @@ hr {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   justify-content: center;
+  justify-items: center;
+}
+
+.cards-container {
+  display: inline-flex;
+  width: 100%;
+  margin-bottom: 20px;
+  justify-content: center;
 }
 
 .card {
+  display: grid;
+  grid-template-rows: 10fr 1fr 10fr;
+  align-content: center;
   background: var(--mainWhite);
   border-radius: 1rem;
-  padding: 1.5rem;
+  padding: 1rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
   transition: 0.2s;
   cursor: pointer;
   text-align: center;
   align-items: center;
-  height: 200px;
+  width: 500px;
+  height: 300px;
 }
 
 .card:not(:first-child) {
-  margin-left: -4rem;
+  margin-left: -2.5rem;
 }
 
 .card:not(:last-child):hover,
