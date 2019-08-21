@@ -151,17 +151,22 @@ function renderNavLinks() {
 
 // FILTERS //
 function renderFilters() {
-  const headerEl = document.querySelector('header');
+  const homePage = document.querySelector('#home-page');
+  const filterDiv = document.createElement('div');
+  filterDiv.id = 'filters';
   const userFilterEl = document.createElement('select');
+  userFilterEl.classList.add('select-css');
   userFilterEl.id = 'user-filter';
   userFilterEl.dataset.id = 'All';
   userFilterEl.innerHTML = '<option>All</option>';
-  headerEl.after(userFilterEl);
+  filterDiv.appendChild(userFilterEl);
   const categoryFilterEl = document.createElement('select');
+  categoryFilterEl.classList.add('select-css');
   categoryFilterEl.id = 'category-filter';
   categoryFilterEl.dataset.id = 'All';
   categoryFilterEl.innerHTML = '<option>All</option>';
-  headerEl.after(categoryFilterEl);
+  filterDiv.appendChild(categoryFilterEl);
+  homePage.prepend(filterDiv);
   renderCategoryFilterOptions();
   renderUserFilterOptions();
 }
