@@ -154,18 +154,29 @@ function renderFilters() {
   const homePage = document.querySelector('#home-page');
   const filterDiv = document.createElement('div');
   filterDiv.id = 'filters';
-  const userFilterEl = document.createElement('select');
-  userFilterEl.classList.add('select-css');
-  userFilterEl.id = 'user-filter';
-  userFilterEl.dataset.id = 'All';
-  userFilterEl.innerHTML = '<option>All</option>';
+
+  const userFilterEl = document.createElement('div');
+  userFilterEl.innerHTML = `
+    <div>
+      <p>Filter by User:</p>
+      <select id="user-filter" class="select-css" data-id="All">
+        <option>All</option>
+      </select>
+    </div>
+  `;
   filterDiv.appendChild(userFilterEl);
-  const categoryFilterEl = document.createElement('select');
-  categoryFilterEl.classList.add('select-css');
-  categoryFilterEl.id = 'category-filter';
-  categoryFilterEl.dataset.id = 'All';
-  categoryFilterEl.innerHTML = '<option>All</option>';
+
+  const categoryFilterEl = document.createElement('div');
+  categoryFilterEl.innerHTML = `
+    <div>
+      <p>Filter by Category:</p>
+      <select id="category-filter" class="select-css" data-id="All">
+        <option>All</option>
+      </select>
+    </div>
+  `;
   filterDiv.appendChild(categoryFilterEl);
+
   homePage.prepend(filterDiv);
   renderCategoryFilterOptions();
   renderUserFilterOptions();
