@@ -7,7 +7,7 @@ function renderEditPackPage(packId) {
       <h2>Edit ${pack.name} Pack</h2>
         <div class="edit-header">
           <img 
-            src='../../backend/app/assets/images/${pack.image_url}' 
+            src='${pack.image_url}' 
             alt='Picture of ${pack.name.toLowerCase()}' 
           />
           <form class="edit-pack-form">

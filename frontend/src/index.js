@@ -191,7 +191,7 @@ function renderPack(pack) {
   packDiv.classList.add('pack-card');
   packDiv.dataset.id = pack.id;
   packDiv.innerHTML = `
-        <img src='../../backend/app/assets/images/${
+        <img src='${
           pack.image_url
         }' alt='Picture of ${pack.name}'>
         <div>
