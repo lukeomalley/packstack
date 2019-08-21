@@ -282,7 +282,6 @@ hr {
 	font-size: 16px;
 	font-weight: bold;
   padding: 14px;
-  width: 100px;
   width: 30%;
   margin: 30px;
 }
@@ -463,6 +462,29 @@ hr {
 
 #multi-choice {
   padding-bottom: 30px;
+}
+.multi-answer-bttn {
+	background: linear-gradient(to bottom, var(--mainGrey) 5%, var(--darkGrey) 100%);
+	border-radius: 6px;
+	cursor: pointer;
+	color: var(--mainBlack);
+	font-size: 16px;
+	font-weight: bold;
+  padding: 14px;
+  max-width: 100%;
+  min-width: 30%;
+  margin-bottom: 10px;
+  text-align: left;
+}
+.multi-answer-bttn:hover {
+	background: linear-gradient(to bottom, var(--darkGrey) 5%, var(--mainGrey) 100%);
+}
+.multi-answer-bttn:active {
+	position: relative;
+	top: 1px;
+}
+#answer {
+  margin-top: 40px;
 }
 
 /* ---------------------------------- STATS ---------------------------------- */

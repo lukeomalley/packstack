@@ -34,7 +34,7 @@ function routeByCardType(pack, currentCardNum){
       <h2>Question</h2>
       <h4>${card.question}</h4>
     </div>
-    <div id="answer-options-space"></div>
+    <div id="answer-space"></div>
   </div>
   `;
   if (!card.is_multi){
@@ -45,21 +45,21 @@ function routeByCardType(pack, currentCardNum){
 };
 
 function playFreeCard(pack, currentCardNum, card){
-  document.getElementById("answer-options-space").innerHTML = `
+  document.getElementById("answer-space").innerHTML = `
     <button id="presume-bttn" class="pack-bttn">I think know the answer</button>
     <button id="dunno-bttn" class="pack-bttn">I don't know the answer</button>
     <div id="answer"></div>
   `;
   document.getElementById("presume-bttn").addEventListener("click", () => renderFreeAnswer(pack, currentCardNum, card));
-  document.getElementById("dunno-bttn").addEventListener("click", (e) => {
+  document.getElementById("dunno-bttn").addEventListener("click", () => {
     renderFreeAnswer(pack, currentCardNum, card);
-    recordView(e, pack, card, "wrong")
+    recordView(card, "wrong")
   });
 };
 
 function playMultiCard(pack, currentCardNum, card){
   let answerId = "answer-0"
-  document.getElementById("answer-options-space").innerHTML = `
+  document.getElementById("answer-space").innerHTML = `
     <div id="answer"></div>
   `;
   card.options.split("|").forEach(option => {
@@ -69,21 +69,23 @@ function playMultiCard(pack, currentCardNum, card){
 };
 
 function renderMultiOption(pack, currentCardNum, card, option, answerId){
-  const multiChoice = document.getElementById("answer-options-space")
+  const multiChoice = document.getElementById("answer-space")
   const newButton = document.createElement("button")
   newButton.name = card.id
+  console.log(card.id)
   newButton.id = answerId
   newButton.value = option
   newButton.innerText = option
-  newButton.className = "pack-bttn"
+  newButton.className = "multi-answer-bttn"
   newButton.addEventListener("click", (e) => {
-    recordView(e, pack, card, e.target.value);
+    recordView(card, e.target.value);
     renderMultiAnswer(pack, currentCardNum, card, e.target.value);
   });
   multiChoice.prepend(newButton)
+  newButton.after(document.createElement("br"))
 }
 
-function recordView(e, pack, card, answer){
+function recordView(card, answer){
   let computedResult;
   if (card.is_multi){
     if (answer === card.answer) {
@@ -123,7 +125,7 @@ function renderFreeAnswer(pack, currentCardNum, card) {
     <h2>Answer</h2>
     <h4>${card.answer}</h4>
     <button id="right-bttn" class="pack-bttn">I knew it!</button>
-    <button id="wrong-bttn" class="pack-bttn">Actually I didn't know it.</button>
+    <button id="wrong-bttn" class="pack-bttn">Didn't know it.</button>
   `;
   document.getElementById("right-bttn").addEventListener("click", () => nextCard(pack, ++currentCardNum));
   document.getElementById("wrong-bttn").addEventListener("click", () => nextCard(pack, ++currentCardNum));
