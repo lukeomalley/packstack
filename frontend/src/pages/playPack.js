@@ -6,7 +6,7 @@ function packPlay(e, pack){
     packPlayConatiner.innerHTML = `
       <div class="deets">
         <div class="deets-card">
-          <img src='../../backend/app/assets/images/${
+          <img src='${
             pack.image_url
           }' alt='Picture of ${pack.name.toLowerCase()}' class='deets-image'>
           <h2>${pack.name}</h2>
