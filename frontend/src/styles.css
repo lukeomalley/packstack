@@ -395,7 +395,8 @@ hr {
 
 .edit-pack-form, 
 .edit-card-form,
-.new-card-form  {
+.new-card-form,
+.profile-form  {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr;
@@ -406,7 +407,8 @@ hr {
 
 .edit-pack-form input[type=text], 
 .edit-card-form input[type=text],
-.new-card-form input[type=text] {
+.new-card-form input[type=text],
+.profile-form input[type=text] {
   width: 70%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -631,7 +633,7 @@ hr {
   padding: 20px;
   text-align: center;
   border-radius: 10px;
-  width: 25vw; /* This just a default width */
+  width: 40vw; /* This just a default width */
 }
 
 .modal_content > h2 {
@@ -640,7 +642,7 @@ hr {
   text-align: center;
 }
 
-#login-form, #profile-form {
+#login-form {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 20px;
@@ -652,6 +654,9 @@ hr {
   justify-content: center;
 }
 
+.profile-form {
+  width: 100%;
+}
 .modal .modal_content .buttons_wrapper {
   padding: 20px;
 }
@@ -684,7 +689,7 @@ hr {
   }
 }
 
-/* ---------------------------------- LOGIN MODAL ---------------------------------- */
+/* ---------------------------------- FOOTER ---------------------------------- */
 .footer {
   margin-top: 30px;
   background: var(--mainBlack);
