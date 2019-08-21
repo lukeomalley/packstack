@@ -54,21 +54,26 @@ function renderEditPackPage(packId) {
         <div class="add-cards-container">
           <h2>Add Cards</h2>
             <p>Select a card type:</p>
-            <label>Free Response</label>
+            <div>
+            <label style="margin-right: 20px;">Free Response</label>
+            <label style="margin-left: 20px;">Multiple</label>
+            </div>
+            <div>
             <input
               id="free-response"
               type="radio"
               name="form-type"
               value="free-response"
+              style="margin-right: 10px;"
             />
-            <label>Multiple</label>
             <input
               id="multiple-choice"
               type="radio"
               name="form-type"
               value="multiple-choice"
+              style="margin-left: 100px;"
             />
-    
+            </div>
             <div id="card-form"></div>
           <div>
         <div>
@@ -79,9 +84,15 @@ function renderEditPackPage(packId) {
       .addEventListener('submit', e => editPack(e, pack));
 
     const cardsDiv = editPackDiv.querySelector('.cards-container');
-    pack.cards.forEach(card => {
-      cardsDiv.appendChild(renderCard(card));
-    });
+    if (pack.cards.length > 0) {
+      pack.cards.forEach(card => {
+        cardsDiv.appendChild(renderCard(card));
+      });
+    } else {
+      const noCardsText = document.createElement('p');
+      noCardsText.innerText = ` ⬇️ Add some cards to this pack below ⬇️`;
+      cardsDiv.appendChild(noCardsText);
+    }
 
     editPackDiv
       .querySelector('#free-response')

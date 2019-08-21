@@ -102,8 +102,11 @@ hr {
 
 .pack-card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  transform: translateY(-5px);
 }
-
+.pack-card:active {
+  transform: translateY(4px);
+}
 @media screen and (max-width: 528px) {
   .packs-container {
     grid-template-columns: 1fr;
@@ -332,7 +335,7 @@ hr {
 }
 
 .new-pack-form input[type=text] {
-  width: 70%;
+  width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -346,6 +349,9 @@ hr {
 @media screen and (max-width: 528px) {
   .pack-new-page-container {
     width: 90vw;
+  }
+  .new-pack-form input[type=text] {
+    width: 90%;
   }
 }
 
@@ -409,6 +415,13 @@ hr {
   display: inline-flex;
   width: 100%;
   margin-bottom: 20px;
+  justify-content: center;
+}
+
+.add-cards-container {
+  display: grid;
+  justify-content: center;
+  text-align: center;
 }
 
 .add-cards-container > h2 {
