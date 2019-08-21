@@ -253,6 +253,7 @@ function urlGeneratorForFetch(category,userId) {
 }
 
 function renderPacks(packsArray) {
+  document.querySelector('#packs-container').innerHTML = ``;
   packsArray.forEach(renderPack);
 }
 
@@ -262,9 +263,7 @@ function renderPack(pack) {
   packDiv.classList.add('pack-card');
   packDiv.dataset.id = pack.id;
   packDiv.innerHTML = `
-        <img src='${
-          pack.image_url
-        }' alt='Picture of ${pack.name}'>
+        <img src='${pack.image_url}' alt='Picture of ${pack.name}'>
         <div>
             <h2>${pack.name}</h2>
             <h3>${pack.category}</h3>
