@@ -1,7 +1,6 @@
 function renderEditPackPage(packId) {
   fetchPack(packId).then(pack => {
     const editPackDiv = document.querySelector('#pack-edit-page');
-    console.log(pack);
     editPackDiv.innerHTML = `
       <div class="pack-edit-page-container">
       <h2>Edit ${pack.name} Pack</h2>
@@ -42,16 +41,19 @@ function renderEditPackPage(packId) {
               placeholder="Category"
               value="${pack.category}"
               required
-            />
-            <button class="btn-primary">Update Pack 🤙</button>
-          </form>
+              />
+              <div>
+                <button type="submit" class="btn-primary">Update Pack 🤙</button>
+                <button id="delete-pack" class="btn-primary">Delete Pack 🗑</button>
+              </div>
+              </form>
           </div>
         <hr />
         <h2>Cards</h2>
         <div class="cards-container"></div>
         <div class="edit-card-form"></div>
         <hr />
-        <div class="add-cards-container">
+        <div class="add-cards-container" id="${packId}">
           <h2>Add Cards</h2>
             <p>Select a card type:</p>
             <div class="new-card-type">
@@ -74,21 +76,13 @@ function renderEditPackPage(packId) {
           <div>
         <div>
     `;
-
     editPackDiv
       .querySelector('form')
       .addEventListener('submit', e => editPack(e, pack));
 
-    const cardsDiv = editPackDiv.querySelector('.cards-container');
-    if (pack.cards.length > 0) {
-      pack.cards.forEach(card => {
-        cardsDiv.appendChild(renderCard(card));
-      });
-    } else {
-      const noCardsText = document.createElement('p');
-      noCardsText.innerText = ` ⬇️ Add some cards to this pack below ⬇️`;
-      cardsDiv.appendChild(noCardsText);
-    }
+    editPackDiv
+      .querySelector('#delete-pack')
+      .addEventListener('click', e => deletePack(e, pack));
 
     editPackDiv
       .querySelector('#free-response')
@@ -99,6 +93,8 @@ function renderEditPackPage(packId) {
       .addEventListener('change', renderMultipleChoiceForm);
 
     editPackDiv.querySelector('#free-response').click();
+
+    renderCards(packId);
   });
 }
 
@@ -127,22 +123,57 @@ function editPack(e, pack) {
     });
 }
 
+function deletePack(e, pack) {
+  console.log('deleting pack');
+  let result = confirm('Are you sure you want to delete this pack?');
+  if (result) {
+    fetch(`http://localhost:3000/packs/${pack.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    }).then(() => {
+      fetchPacks();
+      switchPage('home-page');
+    });
+  }
+}
+
+function renderCards(packId) {
+  fetchPack(packId).then(pack => {
+    const cardsDiv = document.querySelector('.cards-container');
+    cardsDiv.innerHTML = ``;
+    if (pack.cards.length > 0) {
+      pack.cards.forEach(card => {
+        cardsDiv.appendChild(renderCard(card));
+      });
+    } else {
+      const noCardsText = document.createElement('p');
+      noCardsText.innerText = ` ⬇️ Add some cards to this pack below ⬇️`;
+      cardsDiv.appendChild(noCardsText);
+    }
+  });
+}
+
 function renderCard(card) {
   const cardEl = document.createElement('div');
   card.id = `card-${card.id}`;
   cardEl.classList.add('card');
   cardEl.innerHTML = `
-    <h5>${card.question}</h5>
+    <p>${card.question}</p>
     <hr />
     <p>${card.answer}</p>
   `;
-  cardEl.addEventListener('click', () => renderEditCardForm(card));
+  if (card.is_multi) {
+    cardEl.addEventListener('click', () => renderEditMultiCardForm(card));
+  } else {
+    cardEl.addEventListener('click', () => renderEditFreeCardForm(card));
+  }
   return cardEl;
 }
 
-function updateCard(card) {}
-
-function renderEditCardForm(card) {
+function renderEditMultiCardForm(card) {
   const cardEditForm = document.querySelector('.edit-card-form');
   cardEditForm.innerHTML = ``;
   cardEditForm.innerHTML = `
@@ -157,14 +188,97 @@ function renderEditCardForm(card) {
     <div>
       <button class="btn-primary">Update Card 🃏</button>
       <button id="cancel-button" class="btn-primary">Cancel ❌</button>
+      <button id="delete-button" class="btn-primary">Delete Card 🗑</button>
     </div>
   </form>
   `;
+  cardEditForm
+    .querySelector('#cancel-button')
+    .addEventListener('click', clearEditForm);
+
+  cardEditForm
+    .querySelector('form')
+    .addEventListener('submit', e => updateMultiCard(e, card));
+}
+
+function updateMultiCard(e, card) {
+  e.preventDefault();
+  cardId = parseInt(card.id.split('-')[1], 10);
+  fetch(`http://localhost:3000/cards/${cardId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      cards: {
+        question: e.target[1].value,
+        answer: e.target[2].value,
+        options: e.target[3].value,
+      },
+    }),
+  })
+    .then(res => res.json())
+    .then(card => {
+      renderCards(card.pack_id);
+      e.target[1].value = card.question;
+      e.target[2].value = card.answer;
+      e.target[3].value = card.options;
+    });
+}
+
+function renderEditFreeCardForm(card) {
+  const cardEditForm = document.querySelector('.edit-card-form');
+  cardEditForm.innerHTML = ``;
+  cardEditForm.innerHTML = `
+    <form class="edit-pack-form">
+      <input type="hidden" name="is_multi" value="true" />
+      <label for="question">Queston</label>
+      <input type="text" name="queston" value="${card.question}" />
+      <label for="answer">Answer</label>
+      <input type="text" name="answer" value="${card.answer}" />
+      <div>
+        <button class="btn-primary">Update Card 🃏</button>
+        <button id="cancel-button" class="btn-primary">Cancel ❌</button>
+        <button id="delete-button" class="btn-primary">Delete Card 🗑</button>
+      </div>
+    </form>
+    `;
 
   cardEditForm
     .querySelector('#cancel-button')
     .addEventListener('click', clearEditForm);
+
+  cardEditForm
+    .querySelector('form')
+    .addEventListener('submit', e => updateFreeCard(e, card));
 }
+
+function updateFreeCard(e, card) {
+  e.preventDefault();
+  cardId = parseInt(card.id.split('-')[1], 10);
+  fetch(`http://localhost:3000/cards/${cardId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      cards: {
+        question: e.target[1].value,
+        answer: e.target[2].value,
+      },
+    }),
+  })
+    .then(res => res.json())
+    .then(card => {
+      renderCards(card.pack_id);
+      e.target[1].value = card.question;
+      e.target[2].value = card.answer;
+    });
+}
+
+function deleteCard(e, card) {}
 
 function clearEditForm() {
   const cardEditForm = document.querySelector('.edit-card-form');
@@ -187,7 +301,7 @@ function renderFreeResponseForm() {
       <button type="submit" class="btn-primary">Add Card</button>
     </form>
   `;
-  cardForm.addEventListener('submit', createCard);
+  cardForm.addEventListener('submit', createFreeResponseCard);
 }
 
 function renderMultipleChoiceForm() {
@@ -201,10 +315,63 @@ function renderMultipleChoiceForm() {
     <label for="question">Answer</label>
     <input type="text" name="answer" placeholder="Answer"/>
     <label for="options">Options</label>
-    <input type="text" name="option" placeholder="Options|Separeted|By|Pipe"/>
+    <input type="text" name="option" placeholder="Options | Separeted | By | Pipe"/>
     <button type="submit" class="btn-primary">Add Card</button>
   </form>
   `;
+  cardForm.addEventListener('submit', createMultiCard);
 }
 
-function createCard() {}
+function createMultiCard(e) {
+  e.preventDefault();
+  packId = document.querySelector('.add-cards-container').id;
+  fetch('http://localhost:3000/cards', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      cards: {
+        is_multi: e.target[0].value,
+        question: e.target[1].value,
+        answer: e.target[2].value,
+        options: e.target[3].value,
+        pack_id: packId,
+      },
+    }),
+  })
+    .then(res => res.json())
+    .then(card => {
+      renderCards(card.pack_id);
+      e.target[1].value = ``;
+      e.target[2].value = ``;
+      e.target[3].value = ``;
+    });
+}
+
+function createFreeResponseCard(e) {
+  e.preventDefault();
+  packId = document.querySelector('.add-cards-container').id;
+  fetch('http://localhost:3000/cards', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      cards: {
+        is_multi: e.target[0].value,
+        question: e.target[1].value,
+        answer: e.target[2].value,
+        pack_id: packId,
+      },
+    }),
+  })
+    .then(res => res.json())
+    .then(card => {
+      renderCards(card.pack_id);
+      e.target[1].value = ``;
+      e.target[2].value = ``;
+    });
+}

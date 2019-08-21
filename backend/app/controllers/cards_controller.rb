@@ -11,13 +11,13 @@ class CardsController < ApplicationController
   end
 
   def update
-    card = card.find(params[:id])
+    card = Card.find(params[:id])
     card.update(card_params)
     render json: card
   end
 
   def destroy
-    card = card.find(params[:id])
+    card = Card.find(params[:id])
     card.destroy(params[:id])
     render json: card
   end
