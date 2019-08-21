@@ -3,8 +3,7 @@ let currentUser;
 document.addEventListener('DOMContentLoaded', () => {
   currentUser = null;
   renderHeader();
-  renderCategoryFilter();
-  renderUserFilter();
+  renderFilters();
   fetchPacks();
 
   const loginForm = document.getElementById('login-form');
@@ -151,15 +150,28 @@ function renderNavLinks() {
 }
 
 // FILTERS //
-function renderCategoryFilter() {
+function renderFilters(){
+  const headerEl = document.querySelector("header");
+  const userFilterEl = document.createElement("select");
+  userFilterEl.id = "user-filter"
+  userFilterEl.dataset.id = "All"
+  userFilterEl.innerHTML = "<option>All</option>"
+  headerEl.after(userFilterEl);
+  const categoryFilterEl = document.createElement("select");
+  categoryFilterEl.id = "category-filter"
+  categoryFilterEl.dataset.id = "All"
+  categoryFilterEl.innerHTML = "<option>All</option>"
+  headerEl.after(categoryFilterEl);
+  renderCategoryFilterOptions();
+  renderUserFilterOptions();
+}
+
+function renderCategoryFilterOptions() {
   fetch("http://localhost:3000/categories")
     .then(resp => resp.json())
     .then(categoryData => addCategorySelectOptions(categoryData.categories))
   function addCategorySelectOptions(categoryArray){
-    const headerEl = document.querySelector("header");
-    const categoryFilterEl = document.createElement("select");
-    categoryFilterEl.innerHTML = "<option>All</option>"
-    headerEl.after(categoryFilterEl);
+    const categoryFilterEl = document.getElementById("category-filter");
     for (let i=0; i<categoryArray.length; i++){
       const categoryOptionEl = document.createElement("option")
       categoryOptionEl.value = categoryArray[i];
@@ -167,24 +179,20 @@ function renderCategoryFilter() {
       categoryFilterEl.appendChild(categoryOptionEl);
     };
     categoryFilterEl.addEventListener("change", (e) => {
-      if (e.target.value === "All"){
-        fetchPacks();
-      } else {
-        fetchCategoryPacks(e.target.value);
-      };
+      const category = e.target.value
+      const user_id = document.getElementById("user-filter").dataset.id
+      categoryFilterEl.dataset.id = category
+      fetchPacks(category,user_id);
     })
   };
 };
 
-function renderUserFilter() {
+function renderUserFilterOptions() {
   fetch("http://localhost:3000/users")
     .then(resp => resp.json())
     .then(userArray => addUserSelectOptions(userArray))
   function addUserSelectOptions(userArray){
-    const headerEl = document.querySelector("header");
-    const userFilterEl = document.createElement("select");
-    userFilterEl.innerHTML = "<option>All</option>"
-    headerEl.after(userFilterEl);
+    const userFilterEl = document.getElementById("user-filter");
     userArray.forEach(user => {
       const userOptionEl = document.createElement("option")
       userOptionEl.value = user.id;
@@ -192,11 +200,10 @@ function renderUserFilter() {
       userFilterEl.appendChild(userOptionEl);
     });
     userFilterEl.addEventListener("change", (e) => {
-      if (e.target.value === "All"){
-        fetchPacks();
-      } else {
-        fetchUserPacks(e.target.value);
-      };
+      const category = document.getElementById("category-filter").dataset.id
+      const user_id = e.target.value
+      userFilterEl.dataset.id = user_id
+      fetchPacks(category,user_id);
     });
   };
 };
@@ -226,27 +233,23 @@ function setUser(userId) {
 }
 
 // PACKS //
-function fetchPacks() {
+function fetchPacks(category="All",userId="All") {
   document.getElementById("packs-container").innerHTML = "";
-  fetch('http://localhost:3000/packs')
+  fetch(urlGeneratorForFetch(category,userId))
     .then(resp => resp.json())
     .then(renderPacks);
 }
 
-// worth merging into one fetchPacks funct?
-function fetchUserPacks(userId) {
-  document.getElementById("packs-container").innerHTML = "";
-  fetch(`http://localhost:3000/packs?user_id=${userId}`)
-    .then(resp => resp.json())
-    .then(renderPacks);
-}
-
-// worth merging into one fetchPacks funct?
-function fetchCategoryPacks(category) {
-  document.getElementById("packs-container").innerHTML = "";
-  fetch(`http://localhost:3000/packs?category=${category}`)
-    .then(resp => resp.json())
-    .then(renderPacks);
+function urlGeneratorForFetch(category,userId) {
+  if (category === "All" && userId === "All"){
+    return "http://localhost:3000/packs"
+  } else if (category === "All" ){
+    return `http://localhost:3000/packs?user_id=${userId}`
+  } else if (userId === "All"){
+    return `http://localhost:3000/packs?category=${category}`
+  } else {
+    return `http://localhost:3000/packs?category=${category}&user_id=${userId}`
+  }
 }
 
 function renderPacks(packsArray) {
