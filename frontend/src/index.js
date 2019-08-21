@@ -150,63 +150,63 @@ function renderNavLinks() {
 }
 
 // FILTERS //
-function renderFilters(){
-  const headerEl = document.querySelector("header");
-  const userFilterEl = document.createElement("select");
-  userFilterEl.id = "user-filter"
-  userFilterEl.dataset.id = "All"
-  userFilterEl.innerHTML = "<option>All</option>"
+function renderFilters() {
+  const headerEl = document.querySelector('header');
+  const userFilterEl = document.createElement('select');
+  userFilterEl.id = 'user-filter';
+  userFilterEl.dataset.id = 'All';
+  userFilterEl.innerHTML = '<option>All</option>';
   headerEl.after(userFilterEl);
-  const categoryFilterEl = document.createElement("select");
-  categoryFilterEl.id = "category-filter"
-  categoryFilterEl.dataset.id = "All"
-  categoryFilterEl.innerHTML = "<option>All</option>"
+  const categoryFilterEl = document.createElement('select');
+  categoryFilterEl.id = 'category-filter';
+  categoryFilterEl.dataset.id = 'All';
+  categoryFilterEl.innerHTML = '<option>All</option>';
   headerEl.after(categoryFilterEl);
   renderCategoryFilterOptions();
   renderUserFilterOptions();
 }
 
 function renderCategoryFilterOptions() {
-  fetch("http://localhost:3000/categories")
+  fetch('http://localhost:3000/categories')
     .then(resp => resp.json())
-    .then(categoryData => addCategorySelectOptions(categoryData.categories))
-  function addCategorySelectOptions(categoryArray){
-    const categoryFilterEl = document.getElementById("category-filter");
-    for (let i=0; i<categoryArray.length; i++){
-      const categoryOptionEl = document.createElement("option")
+    .then(categoryData => addCategorySelectOptions(categoryData.categories));
+  function addCategorySelectOptions(categoryArray) {
+    const categoryFilterEl = document.getElementById('category-filter');
+    for (let i = 0; i < categoryArray.length; i++) {
+      const categoryOptionEl = document.createElement('option');
       categoryOptionEl.value = categoryArray[i];
       categoryOptionEl.innerText = categoryArray[i];
       categoryFilterEl.appendChild(categoryOptionEl);
-    };
-    categoryFilterEl.addEventListener("change", (e) => {
-      const category = e.target.value
-      const user_id = document.getElementById("user-filter").dataset.id
-      categoryFilterEl.dataset.id = category
-      fetchPacks(category,user_id);
-    })
-  };
-};
+    }
+    categoryFilterEl.addEventListener('change', e => {
+      const category = e.target.value;
+      const user_id = document.getElementById('user-filter').dataset.id;
+      categoryFilterEl.dataset.id = category;
+      fetchPacks(category, user_id);
+    });
+  }
+}
 
 function renderUserFilterOptions() {
-  fetch("http://localhost:3000/users")
+  fetch('http://localhost:3000/users')
     .then(resp => resp.json())
-    .then(userArray => addUserSelectOptions(userArray))
-  function addUserSelectOptions(userArray){
-    const userFilterEl = document.getElementById("user-filter");
+    .then(userArray => addUserSelectOptions(userArray));
+  function addUserSelectOptions(userArray) {
+    const userFilterEl = document.getElementById('user-filter');
     userArray.forEach(user => {
-      const userOptionEl = document.createElement("option")
+      const userOptionEl = document.createElement('option');
       userOptionEl.value = user.id;
       userOptionEl.innerText = user.name;
       userFilterEl.appendChild(userOptionEl);
     });
-    userFilterEl.addEventListener("change", (e) => {
-      const category = document.getElementById("category-filter").dataset.id
-      const user_id = e.target.value
-      userFilterEl.dataset.id = user_id
-      fetchPacks(category,user_id);
+    userFilterEl.addEventListener('change', e => {
+      const category = document.getElementById('category-filter').dataset.id;
+      const user_id = e.target.value;
+      userFilterEl.dataset.id = user_id;
+      fetchPacks(category, user_id);
     });
-  };
-};
+  }
+}
 
 // LOGIN //
 function loginUser(e) {
@@ -233,22 +233,22 @@ function setUser(userId) {
 }
 
 // PACKS //
-function fetchPacks(category="All",userId="All") {
-  document.getElementById("packs-container").innerHTML = "";
-  fetch(urlGeneratorForFetch(category,userId))
+function fetchPacks(category = 'All', userId = 'All') {
+  document.getElementById('packs-container').innerHTML = '';
+  fetch(urlGeneratorForFetch(category, userId))
     .then(resp => resp.json())
     .then(renderPacks);
 }
 
-function urlGeneratorForFetch(category,userId) {
-  if (category === "All" && userId === "All"){
-    return "http://localhost:3000/packs"
-  } else if (category === "All" ){
-    return `http://localhost:3000/packs?user_id=${userId}`
-  } else if (userId === "All"){
-    return `http://localhost:3000/packs?category=${category}`
+function urlGeneratorForFetch(category, userId) {
+  if (category === 'All' && userId === 'All') {
+    return 'http://localhost:3000/packs';
+  } else if (category === 'All') {
+    return `http://localhost:3000/packs?user_id=${userId}`;
+  } else if (userId === 'All') {
+    return `http://localhost:3000/packs?category=${category}`;
   } else {
-    return `http://localhost:3000/packs?category=${category}&user_id=${userId}`
+    return `http://localhost:3000/packs?category=${category}&user_id=${userId}`;
   }
 }
 

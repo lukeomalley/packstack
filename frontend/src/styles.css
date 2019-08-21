@@ -450,6 +450,40 @@ hr {
   .new-card-form input[type=text] {
     width: 80%;
   }
+
+  .cards-container {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr;
+    width: 100%;
+    margin-bottom: 20px;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  .card {
+    width: 80%
+  }
+
+  .card:not(:first-child) {
+    margin-left: 0;
+  }
+  
+  .card:not(:last-child):hover,
+  .card:not(:last-child):focus-within,
+  .card:not(:last-child):focus-within ~ .card  {
+    transform: none;
+  }
+  
+  .card:not(:last-child):focus-within ~ .card {
+    transform: none;
+  }
+
+  #card-form {
+    width: 80vw;
+    margin-bottom: 50px;
+    margin: 50px auto;
+  }
 }
 
 /* ---------------------------------- PACK PLAY ---------------------------------- */
