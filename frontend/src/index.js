@@ -108,8 +108,16 @@ function renderNavLinks() {
     homeLink.innerText = `Home`;
     newPackLink.innerText = `New Pack`;
     statsLink.innerText = `Stats`;
-    profileLink.innerText = `Profile`;
+    profileLink.innerHTML = `${avatar()} Profile`;
     logoutLink.innerText = `Logout`;
+
+    function avatar(){
+      if (!!currentUser.image_url){
+        return `<img id="avatar" src="${currentUser.image_url}" alt="${currentUser.name}"/>`
+      } else {
+        return ""
+      }
+    }
 
     homeLink.addEventListener('click', () => switchPage('home-page'));
     newPackLink.addEventListener('click', e => {
