@@ -70,7 +70,7 @@ function routeByCardType(pack, currentCardNum) {
 
 function playFreeCard(pack, currentCardNum, card) {
   document.getElementById('answer-space').innerHTML = `
-    <button id="presume-bttn" class="pack-bttn">I think know the answer</button>
+    <button id="presume-bttn" class="pack-bttn">I think I know the answer</button>
     <button id="dunno-bttn" class="pack-bttn">I don't know the answer</button>
     <div id="answer"></div>
   `;
