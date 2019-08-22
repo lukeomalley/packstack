@@ -10,8 +10,8 @@ View.destroy_all
 # users
 
 bob = User.create(name: 'Bob', image_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRojOunWn-_b6oMG-gD36ZRkXiRfAMcccvSpO1Br7iXliUVHLJG')
-sally = User.create(name: 'Sally', image_url: 'https://i.pinimg.com/474x/91/59/70/915970f771eff250b45dbc314707d79c.jpg')
-tony = User.create(name: 'Tony', image_url: 'http://popicon.life/wp-content/uploads/2019/01/169tonybanner.jpg')
+sally = User.create(name: 'Sally', image_url: 'https://i.pinimg.com/originals/2c/95/42/2c9542fc00f90648d44ab29dbc92d7ee.jpg')
+tony = User.create(name: 'Tony', image_url: 'https://www.streetinsider.com/images/news2/118/11846170/Ktonythetiger.jpg')
 
 # packs
 
